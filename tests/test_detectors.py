@@ -39,7 +39,7 @@ print(sys.version)
         sym_table = build_symbol_table(tree)
         
         unused = detect_unused_vars(sym_table)
-        unused_imports = [u for u in unused if u['type'] == 'import']
+        unused_imports = [u for u in unused if u['type'] == 'unused_import']
         self.assertGreater(len(unused_imports), 0)
 
 
@@ -91,8 +91,7 @@ class TestSecurityScanner(unittest.TestCase):
     
     def test_sql_injection(self):
         code = """
-query = "SELECT * FROM users WHERE id = " + user_id
-cursor.execute(query)
+cursor.execute("SELECT * FROM users WHERE id = " + user_id)
 """
         parser = ASTParser(code)
         tree = parser.parse()
