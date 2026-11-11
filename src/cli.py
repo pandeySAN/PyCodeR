@@ -58,7 +58,11 @@ class PyLintPro:
         
     def load_file(self):
         try:
-            with open(self.filepath, 'r') as f:
+            with open(self.filepath, 'r', encoding='utf-8') as f:
+                self.source_code = f.read()
+        except UnicodeDecodeError:
+            # Fall back to latin-1 which can decode any byte sequence.
+            with open(self.filepath, 'r', encoding='latin-1') as f:
                 self.source_code = f.read()
         except IOError as e:
             print(f"Error reading file {self.filepath}: {e}")
@@ -106,7 +110,7 @@ class PyLintPro:
             self.all_issues.extend(complexity_issues)
         
         if self._should_run_rule('undefined_vars'):
-            reaching = ReachingDefinitions(self.cfg)
+            reaching = ReachingDefinitions(self.cfg, self.tree)
             reaching.analyze()
             undefined = reaching.find_undefined_uses()
             
@@ -318,7 +322,7 @@ def _report_console_multi(results: Dict[str, List], show_benchmark: bool, elapse
     total_issues = sum(len(issues) for issues in results.values())
     
     if not total_issues:
-        print("\n✓ No issues found")
+        print("\nOK No issues found")
         if show_benchmark:
             print(f"\nAnalysis completed in {elapsed:.2f}s")
         return

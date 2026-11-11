@@ -14,6 +14,7 @@ class BasicBlock:
         self.live_out = set()
         self.reach_in = set()
         self.reach_out = set()
+        self.function = None  # enclosing function name, if any
         
     def add_statement(self, stmt):
         self.statements.append(stmt)

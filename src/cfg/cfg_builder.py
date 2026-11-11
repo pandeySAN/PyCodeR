@@ -9,6 +9,7 @@ class CFGBuilder(ast.NodeVisitor):
         self.break_stack = []
         self.continue_stack = []
         self.func_exit = None
+        self.current_function = None  # enclosing function name, if any
         
     def build(self, tree):
         self.visit(tree)
@@ -18,6 +19,7 @@ class CFGBuilder(ast.NodeVisitor):
         
     def new_block(self, name=None):
         block = self.cfg.new_block(name)
+        block.function = self.current_function
         return block
         
     def add_stmt(self, stmt):
@@ -34,11 +36,14 @@ class CFGBuilder(ast.NodeVisitor):
         
         old_block = self.current_block
         old_exit = self.func_exit
+        old_function = self.current_function
         
         if self.current_block:
             self.cfg.add_edge(self.current_block, func_entry)
         self.current_block = func_entry
         self.func_exit = func_exit
+        self.current_function = node.name
+        func_entry.function = node.name
         
         for stmt in node.body:
             self.visit(stmt)
@@ -48,6 +53,7 @@ class CFGBuilder(ast.NodeVisitor):
             
         self.current_block = func_exit
         self.func_exit = old_exit
+        self.current_function = old_function
         
     def visit_If(self, node):
         test_block = self.current_block
