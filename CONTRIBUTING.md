@@ -5,7 +5,7 @@ Thanks for your interest in contributing! This document provides guidelines for 
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/yourusername/pylint-pro`
+2. Clone your fork: `git clone https://github.com/pylint-pro/pylint-pro`
 3. Install in development mode: `pip install -e ".[dev]"`
 4. Install pre-commit hooks: `python hooks/install-hook.py`
 

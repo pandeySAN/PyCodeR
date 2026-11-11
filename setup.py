@@ -6,10 +6,12 @@ with open("README.md", "r", encoding="utf-8") as f:
 setup(
     name="pylint-pro",
     version="2.0.0",
-    author="Your Name",
+    author="PyLint Pro Maintainer",
+    author_email="maintainer@pylint-pro.example",
     description="Production-grade static code analyzer with cross-file analysis and caching",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    url="https://github.com/pylint-pro/pylint-pro",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",

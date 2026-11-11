@@ -6,7 +6,7 @@ Get started with PyLint Pro in under 5 minutes.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/pylint-pro
+git clone https://github.com/pylint-pro/pylint-pro
 cd pylint-pro
 
 # Install
@@ -185,8 +185,8 @@ pylint-pro src/ --enable security,dead_code
 
 ## Getting Help
 
-- **Issues**: https://github.com/yourusername/pylint-pro/issues
-- **Discussions**: https://github.com/yourusername/pylint-pro/discussions
+- **Issues**: https://github.com/pylint-pro/pylint-pro/issues
+- **Discussions**: https://github.com/pylint-pro/pylint-pro/discussions
 - **Contributing**: See `CONTRIBUTING.md`
 
 ## What's Next?

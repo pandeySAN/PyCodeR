@@ -12,21 +12,26 @@ Most linters focus on style and simple pattern matching. PyLint Pro performs **d
 - **Security Scanning**: Identifies SQL injection, command injection, and hardcoded secrets
 - **Smart Caching**: Only re-analyzes files that changed, making it fast for large projects
 
-### vs. Pylint/Flake8
+### How it compares
 
-| Feature | PyLint Pro | Pylint | Flake8 |
-|---------|------------|--------|--------|
-| Control Flow Analysis | ✓ | ✗ | ✗ |
-| Dataflow Analysis | ✓ | ✗ | ✗ |
-| Cross-File Analysis | ✓ | Limited | ✗ |
-| File Caching | ✓ | ✗ | ✗ |
-| Security Scanning | ✓ | Limited | ✗ |
-| Project-Wide Analysis | ✓ | ✗ | ✗ |
+PyLint Pro is a small, stdlib-only static analyzer that focuses on control-flow
+and dataflow bugs (use-before-assignment, possible `None` dereferences,
+unreachable code, infinite loops) plus pattern-based security checks. It is not
+a replacement for mature linters:
+
+- **Pylint** does style, convention, some flow analysis, and limited
+  cross-file checks. PyLint Pro catches a different, complementary set of
+  logic bugs.
+- **Flake8** (PyFlakes + pycodestyle) catches undefined names and unused
+  imports. PyLint Pro adds CFG/dataflow reasoning on top.
+
+PyLint Pro's strengths are its CFG builder, reaching-definitions and liveness
+analyses, and its optional result cache. Its limitations are listed below.
 
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/pylint-pro
+git clone https://github.com/pylint-pro/pylint-pro
 cd pylint-pro
 pip install -e .
 ```
@@ -110,10 +115,10 @@ Only re-analyzes files that changed:
 
 ```bash
 # First run: analyzes everything
-pylint-pro src/  # 5.2s
+pylint-pro src/
 
-# Second run: uses cache
-pylint-pro src/  # 0.3s (17x faster!)
+# Second run: uses cache (only re-analyzes changed files)
+pylint-pro src/
 ```
 
 ## Advanced Usage
@@ -237,21 +242,64 @@ Issue Reports
 
 ## Performance
 
-Tested on real-world codebases:
+Measured on this machine (Python 3.13), end-to-end (parse + CFG + dataflow +
+all detectors).
 
-| Project Size | Lines of Code | Analysis Time (cached) |
-|--------------|---------------|------------------------|
-| Small | 1,000 | 0.3s |
-| Medium | 10,000 | 2.1s |
-| Large | 50,000 | 8.7s |
+Generated files (cold, avg of 3 runs):
 
-Benchmarks run on Ubuntu 22.04, Python 3.10, Intel i7.
+| Lines | Avg time (s) | Min (s) | Max (s) |
+|-------|--------------|---------|---------|
+| 100   | 0.017        | 0.015   | 0.019   |
+| 500   | 0.129        | 0.121   | 0.137   |
+| 1000  | 0.313        | 0.254   | 0.355   |
+| 5000  | 12.16        | 10.86   | 13.53   |
+
+Cache impact on a 1000-line generated file (avg of 5 runs):
+
+| Mode   | Avg time (s) |
+|--------|--------------|
+| No cache | 0.508       |
+| Cache    | 0.035       |
+| Speedup  | 14.40x      |
+
+Real open-source repos (cold vs cached):
+
+| Repository | Version | Files | Cold time | Cached time | Speedup |
+|------------|---------|-------|-----------|-------------|---------|
+| requests   | 2.34.2  | 37    | 17.80s    | 2.85s       | 6.25x   |
+| flask      | 3.2.0.dev | 83  | 16.27s    | 6.96s       | 2.34x   |
 
 Run benchmarks yourself:
 
 ```bash
 python benchmarks/run_benchmarks.py
 ```
+
+## Accuracy
+
+A manual review of a stratified random sample of 50 findings produced against
+real repos (requests 2.34.2, flask 3.2.0.dev) gave the following false-positive
+rates per detector:
+
+| Category | Sample | FP | FP rate |
+|----------|--------|----|---------|
+| arg_count_mismatch | 6 | 6 | 100% |
+| unused | 14 | 6 | 42.9% |
+| undefined_variable | 14 | 1 | 7.1% |
+| dead_code | 8 | 0 | 0% |
+| security | 6 | 0 | 0% |
+| **Overall** | **50** | **13** | **26%** |
+
+"unused" combines unused_import, unused_function, unused_class, unused_variable.
+
+Arg-count mismatches are mostly FP on real code because external libraries
+accept `*args`/`**kwargs`, which this analyzer does not model. Unused-symbol
+reports are partly FP because pytest test functions and dunder methods are
+referenced by frameworks rather than by static source references.
+
+See `docs/evaluation.md` for full benchmark numbers, repo versions, per-category
+issue counts on real repos, and the list of known misses.
+
 
 ## Limitations & Known Issues
 
