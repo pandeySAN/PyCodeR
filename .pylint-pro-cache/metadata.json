@@ -14,5 +14,9 @@
   "tests\\fixtures\\clean_code.py": {
     "mtime": 1777186521.8930025,
     "hash": "f9f60dc1f92332beb16920e6fcc908c7874727b6372c2b5330189937fb9ea51d"
+  },
+  "tests\\fixtures\\buggy_code.py": {
+    "mtime": 1777186521.902774,
+    "hash": "93fac35bb8a08bc4129cfc9566574485e0b3eec56027b6d688e9d581b4b04756"
   }
 }
