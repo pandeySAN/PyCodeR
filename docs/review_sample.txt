@@ -1,0 +1,446 @@
+===== 1 | flask/tests/test_basic.py:528 | arg_count_mismatch =====
+Function 'run_test' expects 1 args, got 0
+ 525| 
+ 526|     is_permanent = True
+ 527|     app.config["SESSION_REFRESH_EACH_REQUEST"] = True
+ 528|     run_test(expect_header=True)
+ 529| 
+ 530|     is_permanent = True
+
+===== 2 | requests/src/requests/utils.py:933 | arg_count_mismatch =====
+Function 'get_environ_proxies' expects 2 args, got 1
+ 930|     new_proxies = proxies.copy()
+ 931| 
+ 932|     if trust_env and not should_bypass_proxies(url, no_proxy=no_proxy):
+ 933|         environ_proxies = get_environ_proxies(url, no_proxy=no_proxy)
+ 934| 
+ 935|         proxy = environ_proxies.get(scheme, environ_proxies.get("all"))
+
+===== 3 | flask/src/flask/cli.py:349 | arg_count_mismatch =====
+Function 'locate_app' expects 3 args, got 2
+ 346|                     re.split(r":(?![\\/])", self.app_import_path, maxsplit=1) + [None]
+ 347|                 )[:2]
+ 348|                 import_name = prepare_import(path)
+ 349|                 app = locate_app(import_name, name)
+ 350|             else:
+ 351|                 for path in ("wsgi.py", "app.py"):
+
+===== 4 | requests/src/requests/sessions.py:553 | arg_count_mismatch =====
+Function 'merge_hooks' expects 3 args, got 2
+ 550|             params=merge_setting(request.params, self.params),
+ 551|             auth=merge_setting(auth, self.auth),
+ 552|             cookies=merged_cookies,
+ 553|             hooks=merge_hooks(request.hooks, self.hooks),
+ 554|         )
+ 555|         return p
+
+===== 5 | flask/tests/test_basic.py:532 | arg_count_mismatch =====
+Function 'run_test' expects 1 args, got 0
+ 529| 
+ 530|     is_permanent = True
+ 531|     app.config["SESSION_REFRESH_EACH_REQUEST"] = False
+ 532|     run_test(expect_header=False)
+ 533| 
+ 534|     is_permanent = False
+
+===== 6 | flask/examples/tutorial/flaskr/blog.py:90 | arg_count_mismatch =====
+Function 'get_post' expects 2 args, got 1
+  87| @login_required
+  88| def update(id):
+  89|     """Update a post if the current user is the author."""
+  90|     post = get_post(id)
+  91| 
+  92|     if request.method == "POST":
+
+===== 7 | requests/tests/test_requests.py:306 | unused_function =====
+Function 'test_http_303_changes_post_to_get' is defined but never called
+ 303|         assert r.history[0].status_code == 302
+ 304|         assert r.history[0].is_redirect
+ 305| 
+ 306|     def test_http_303_changes_post_to_get(self, httpbin):
+ 307|         r = requests.post(httpbin("status", "303"))
+ 308|         assert r.status_code == 200
+
+===== 8 | requests/tests/test_utils.py:127 | unused_function =====
+Function 'test_super_len_with__len__' is defined but never called
+ 124|             member = tar.extractfile("test.txt")
+ 125|             assert super_len(member) == 4
+ 126| 
+ 127|     def test_super_len_with__len__(self):
+ 128|         foo = [1, 2, 3, 4]
+ 129|         len_foo = super_len(foo)
+
+===== 9 | requests/src/requests/models.py:847 | unused_function =====
+Function '__nonzero__' is defined but never called
+ 844|         """
+ 845|         return self.ok
+ 846| 
+ 847|     def __nonzero__(self) -> bool:
+ 848|         """Returns True if :attr:`status_code` is less than 400.
+ 849| 
+
+===== 10 | flask/tests/type_check/typing_error_handler.py:1 | unused_import =====
+Imported module 'annotations' is never used
+   1| from __future__ import annotations
+   2| 
+   3| from http import HTTPStatus
+
+===== 11 | flask/tests/test_user_error_handler.py:167 | unused_function =====
+Function 'bp_exception_handler' is defined but never called
+ 164|     bp = flask.Blueprint("bp", __name__)
+ 165| 
+ 166|     @bp.errorhandler(HTTPException)
+ 167|     def bp_exception_handler(e):
+ 168|         assert isinstance(e, HTTPException)
+ 169|         assert isinstance(e, NotFound)
+
+===== 12 | flask/tests/test_user_error_handler.py:230 | unused_function =====
+Function 'do_error' is defined but never called
+ 227|             raise self.Custom()
+ 228| 
+ 229|         @app.route("/error")
+ 230|         def do_error():
+ 231|             raise KeyError()
+ 232| 
+
+===== 13 | flask/src/flask/sansio/app.py:534 | unused_function =====
+Function 'select_jinja_autoescape' is defined but never called
+ 531|         """
+ 532|         return DispatchingJinjaLoader(self)
+ 533| 
+ 534|     def select_jinja_autoescape(self, filename: str | None) -> bool:
+ 535|         """Returns ``True`` if autoescaping should be active for the given
+ 536|         template name. If no template name is given, returns `True`.
+
+===== 14 | requests/tests/test_requests.py:1921 | unused_function =====
+Function 'test_auth_is_stripped_on_http_downgrade' is defined but never called
+1918|             preq = req.prepare()
+1919|             assert test_url == preq.url
+1920| 
+1921|     def test_auth_is_stripped_on_http_downgrade(
+1922|         self, httpbin, httpbin_secure, httpbin_ca_bundle
+1923|     ):
+
+===== 15 | flask/tests/test_appctx.py:123 | unused_function =====
+Function 'index' is defined but never called
+ 120|         cleanup_stuff.append(exception)
+ 121| 
+ 122|     @app.route("/")
+ 123|     def index():
+ 124|         raise ValueError("dummy")
+ 125| 
+
+===== 16 | flask/tests/test_blueprints.py:25 | unused_function =====
+Function 'backend_no' is defined but never called
+  22|         return "backend says no", 403
+  23| 
+  24|     @backend.route("/backend-no")
+  25|     def backend_no():
+  26|         flask.abort(403)
+  27| 
+
+===== 17 | requests/tests/test_requests.py:593 | unused_function =====
+Function 'test_errors' is defined but never called
+ 590|             ("http://fe80::5054:ff:fe5a:fc0", InvalidURL),
+ 591|         ),
+ 592|     )
+ 593|     def test_errors(self, url, exception):
+ 594|         with pytest.raises(exception):
+ 595|             requests.get(url, timeout=1)
+
+===== 18 | flask/src/flask/templating.py:200 | unused_function =====
+Function 'stream_template_string' is defined but never called
+ 197|     return _stream(ctx, template, context)
+ 198| 
+ 199| 
+ 200| def stream_template_string(source: str, **context: t.Any) -> t.Iterator[str]:
+ 201|     """Render a template from the given source string with the given
+ 202|     context as a stream. This returns an iterator of strings, which can
+
+===== 19 | flask/src/flask/wrappers.py:242 | unused_variable =====
+Variable 'json_module' is assigned but never used
+ 239| 
+ 240|     default_mimetype: str | None = "text/html"
+ 241| 
+ 242|     json_module = json
+ 243| 
+ 244|     @property
+
+===== 20 | flask/examples/celery/src/task_app/__init__.py:20 | unused_function =====
+Function 'index' is defined but never called
+  17|     celery_init_app(app)
+  18| 
+  19|     @app.route("/")
+  20|     def index() -> str:
+  21|         return render_template("index.html")
+  22| 
+
+===== 21 | requests/src/requests/cookies.py:31 | undefined_variable =====
+Variable 'NotImplementedError' may be used before definition
+  28| import threading
+  29| 
+  30| 
+  31| class MockRequest:
+  32|     """Wraps a `requests.PreparedRequest` to mimic a `urllib2.Request`.
+  33| 
+
+===== 22 | flask/tests/test_user_error_handler.py:217 | undefined_variable =====
+Variable 'KeyError' may be used before definition
+ 214|     assert c.get("/slash", follow_redirects=True).data == b"slash"
+ 215| 
+ 216| 
+ 217| class TestGenericHandlers:
+ 218|     """Test how very generic handlers are dispatched to."""
+ 219| 
+
+===== 23 | requests/src/requests/utils.py:834 | undefined_variable =====
+Variable 'host_with_port' may be used before definition
+ 831|         # URLs don't always have hostnames, e.g. file:/// urls.
+ 832|         return True
+ 833| 
+ 834|     if no_proxy:
+ 835|         # We need to check whether we match here. We need to see if we match
+ 836|         # the end of the hostname, both with and without the port.
+
+===== 24 | requests/src/requests/cookies.py:191 | undefined_variable =====
+Variable 'other' may be used before definition
+ 188|     """
+ 189| 
+ 190| 
+ 191| class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ignore[misc]
+ 192|     """Compatibility class; is a http.cookiejar.CookieJar, but exposes a dict
+ 193|     interface.
+
+===== 25 | requests/src/requests/auth.py:44 | undefined_variable =====
+Variable 'DeprecationWarning' may be used before definition
+  41|     #
+  42|     # These are here solely to maintain backwards compatibility
+  43|     # for things like ints. This will be removed in 3.0.0.
+  44|     if not isinstance(username, basestring):  # runtime guard for non-str/bytes
+  45|         warnings.warn(
+  46|             "Non-string usernames will no longer be supported in Requests "
+
+===== 26 | flask/src/flask/json/tag.py:205 | undefined_variable =====
+Variable 'http_date' may be used before definition
+ 202|         return UUID(value)
+ 203| 
+ 204| 
+ 205| class TagDateTime(JSONTag):
+ 206|     __slots__ = ()
+ 207|     key = " d"
+
+===== 27 | flask/tests/test_views.py:193 | undefined_variable =====
+Variable 'AssertionError' may be used before definition
+ 190| 
+ 191|     app.add_url_rule("/", view_func=Index.as_view("index"))
+ 192| 
+ 193|     with pytest.raises(AssertionError):
+ 194|         app.add_url_rule("/other", view_func=Index.as_view("index"))
+ 195| 
+
+===== 28 | requests/tests/testserver/server.py:120 | undefined_variable =====
+Variable 'RuntimeError' may be used before definition
+ 117|     def __enter__(self):
+ 118|         self.start()
+ 119|         if not self.ready_event.wait(self.WAIT_EVENT_TIMEOUT):
+ 120|             raise RuntimeError("Timeout waiting for server to be ready.")
+ 121|         return self.host, self.port
+ 122| 
+
+===== 29 | requests/src/requests/cookies.py:325 | undefined_variable =====
+Variable 'iter' may be used before definition
+ 322|         :rtype: bool
+ 323|         """
+ 324|         domains: list[str] = []
+ 325|         for cookie in iter(self):
+ 326|             if cookie.domain is not None and cookie.domain in domains:  # type: ignore[reportUnnecessaryComparison]  # defensive check
+ 327|                 return True
+
+===== 30 | requests/src/requests/models.py:165 | undefined_variable =====
+Variable 'k' may be used before definition
+ 162|             return data
+ 163|         elif _t.has_read(data):
+ 164|             return data
+ 165|         elif hasattr(data, "__iter__"):
+ 166|             result: list[tuple[bytes, bytes]] = []
+ 167|             for k, vs in to_key_val_list(data):
+
+===== 31 | flask/src/flask/app.py:1256 | undefined_variable =====
+Variable '_anchor' may be used before definition
+1253|                 force_external=_external,
+1254|             )
+1255|         except BuildError as error:
+1256|             values.update(
+1257|                 _anchor=_anchor, _method=_method, _scheme=_scheme, _external=_external
+1258|             )
+
+===== 32 | flask/src/flask/ctx.py:260 | undefined_variable =====
+Variable 'environ' may be used before definition
+ 257|     return _cv_app.get(None) is not None
+ 258| 
+ 259| 
+ 260| class AppContext:
+ 261|     """An app context contains information about an app, and about the request
+ 262|     when handling a request. A context is pushed at the beginning of each
+
+===== 33 | flask/tests/test_templating.py:320 | undefined_variable =====
+Variable 'bool' may be used before definition
+ 317| 
+ 318| def test_add_template_test_with_template(app, client):
+ 319|     def boolean(value):
+ 320|         return isinstance(value, bool)
+ 321| 
+ 322|     app.add_template_test(boolean)
+
+===== 34 | requests/tests/test_requests.py:84 | undefined_variable =====
+Variable 'urls' may be used before definition
+  81|     HAS_PYOPENSSL = False
+  82| 
+  83| 
+  84| class TestRequests:
+  85|     digest_auth_algo = ("MD5", "SHA-256", "SHA-512")
+  86| 
+
+===== 35 | flask/src/flask/json/tag.py:254 | unreachable_block =====
+Block for_body is unreachable
+ 251|         self.order: list[JSONTag] = []
+ 252| 
+ 253|         for cls in self.default_tags:
+ 254|             self.register(cls)
+ 255| 
+ 256|     def register(
+
+===== 36 | flask/tests/test_appctx.py:105 | unreachable_block =====
+Block handler_entry is unreachable
+ 102| 
+ 103|     @app.errorhandler(Exception)
+ 104|     def handler(f):
+ 105|         return flask.jsonify(str(f))
+ 106| 
+ 107|     with app.app_context():
+
+===== 37 | flask/tests/test_cli.py:693 | unreachable_block =====
+Block test_cli_empty_entry is unreachable
+ 690| 
+ 691| 
+ 692| def test_cli_empty(app):
+ 693|     """If a Blueprint's CLI group is empty, do not register it."""
+ 694|     bp = Blueprint("blue", __name__, cli_group="blue")
+ 695|     app.register_blueprint(bp)
+
+===== 38 | flask/tests/test_cli.py:359 | unreachable_block =====
+Block test_exit is unreachable
+ 356|     def test():
+ 357|         click.echo(current_app.name)
+ 358| 
+ 359|     result = runner.invoke(cli, ["test"])
+ 360|     assert result.exit_code == 0
+ 361|     assert result.output == "flaskgroup\n"
+
+===== 39 | flask/tests/test_cli.py:312 | unreachable_block =====
+Block testcmd_exit is unreachable
+ 309|     def testcmd():
+ 310|         click.echo(current_app.name)
+ 311| 
+ 312|     obj = ScriptInfo(create_app=lambda: Flask("testapp"))
+ 313| 
+ 314|     result = runner.invoke(testcmd, obj=obj)
+
+===== 40 | requests/tests/test_requests.py:2800 | unreachable_block =====
+Block normalize_percent_encode_exit is unreachable
+2797|                 x = x.replace(c, c.upper())
+2798|             return x
+2799| 
+2800|         r = requests.Request("GET", url=url)
+2801|         p = r.prepare()
+2802|         assert normalize_percent_encode(p.url) == expected
+
+===== 41 | flask/src/flask/cli.py:223 | unreachable_block =====
+Block while_exit is unreachable
+ 220|         if not os.path.exists(os.path.join(path, "__init__.py")):
+ 221|             break
+ 222| 
+ 223|     if sys.path[0] != path:
+ 224|         sys.path.insert(0, path)
+ 225| 
+
+===== 42 | requests/tests/test_utils.py:564 | unreachable_block =====
+Block test_select_proxies_entry is unreachable
+ 561|     ),
+ 562| )
+ 563| def test_select_proxies(url, expected, proxies):
+ 564|     """Make sure we can select per-host proxies correctly."""
+ 565|     assert select_proxy(url, proxies) == expected
+ 566| 
+
+===== 43 | flask/src/flask/cli.py:1022 | dangerous_function =====
+Use of dangerous function 'eval'
+1019|     startup = os.environ.get("PYTHONSTARTUP")
+1020|     if startup and os.path.isfile(startup):
+1021|         with open(startup) as f:
+1022|             eval(compile(f.read(), startup, "exec"), ctx)
+1023| 
+1024|     ctx.update(current_app.make_shell_context())
+
+===== 44 | flask/src/flask/helpers.py:623 | dangerous_function =====
+Use of dangerous function '__import__'
+ 620|         filepath = loader.get_filename(import_name)  # pyright: ignore
+ 621|     else:
+ 622|         # Fall back to imports.
+ 623|         __import__(import_name)
+ 624|         mod = sys.modules[import_name]
+ 625|         filepath = getattr(mod, "__file__", None)
+
+===== 45 | flask/examples/tutorial/tests/conftest.py:51 | hardcoded_password =====
+Hardcoded secret detected
+  48|     def __init__(self, client):
+  49|         self._client = client
+  50| 
+  51|     def login(self, username="test", password="test"):
+  52|         return self._client.post(
+  53|             "/auth/login", data={"username": username, "password": password}
+
+===== 46 | flask/src/flask/cli.py:245 | dangerous_function =====
+Use of dangerous function '__import__'
+ 242|     module_name: str, app_name: str | None, raise_if_not_found: bool = True
+ 243| ) -> Flask | None:
+ 244|     try:
+ 245|         __import__(module_name)
+ 246|     except ImportError:
+ 247|         # Reraise the ImportError if it occurred within the imported module.
+
+===== 47 | flask/src/flask/cli.py:1022 | dangerous_function =====
+Use of dangerous function 'compile'
+1019|     startup = os.environ.get("PYTHONSTARTUP")
+1020|     if startup and os.path.isfile(startup):
+1021|         with open(startup) as f:
+1022|             eval(compile(f.read(), startup, "exec"), ctx)
+1023| 
+1024|     ctx.update(current_app.make_shell_context())
+
+===== 48 | flask/src/flask/config.py:209 | dangerous_function =====
+Use of dangerous function 'exec'
+ 206|         d.__file__ = filename
+ 207|         try:
+ 208|             with open(filename, mode="rb") as config_file:
+ 209|                 exec(compile(config_file.read(), filename, "exec"), d.__dict__)
+ 210|         except OSError as e:
+ 211|             if silent and e.errno in (errno.ENOENT, errno.EISDIR, errno.ENOTDIR):
+
+===== 49 | flask/src/flask/app.py:1267 | long_function =====
+Function 'make_response' has 141 lines (consider splitting)
+1264| 
+1265|         return rv
+1266| 
+1267|     def make_response(self, rv: ft.ResponseReturnValue) -> Response:
+1268|         """Convert the return value from a view function to an instance of
+1269|         :attr:`response_class`.
+
+===== 50 | requests/src/requests/adapters.py:634 | high_complexity =====
+Function 'send' has complexity 19 (max 10)
+ 631| 
+ 632|         return headers
+ 633| 
+ 634|     def send(
+ 635|         self,
+ 636|         request: PreparedRequest,
