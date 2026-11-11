@@ -13,7 +13,7 @@ class ConsoleReporter:
         
     def report(self):
         if not self.issues:
-            print(f"\n✓ No issues found in {self.filename or 'code'}")
+            print(f"\nOK No issues found in {self.filename or 'code'}")
             return
             
         print(f"\n{'='*60}")
@@ -43,10 +43,17 @@ class ConsoleReporter:
         color = self.colors.get(severity, self.colors['reset'])
         reset = self.colors['reset']
         
+        # Sort issues by line number so the output is deterministic and easy
+        # to follow. Issues without a line number sort last.
+        ordered = sorted(
+            issues,
+            key=lambda i: (i.get('lineno') is None, i.get('lineno', 999999)),
+        )
+        
         print(f"{color}{severity.upper()}{reset} ({len(issues)} issues)")
         print("-" * 60)
         
-        for issue in issues:
+        for issue in ordered:
             lineno = issue.get('lineno', '?')
             msg = issue.get('message', 'No message')
             issue_type = issue.get('type', 'unknown')

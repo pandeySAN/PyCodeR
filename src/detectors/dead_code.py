@@ -12,6 +12,18 @@ class DeadCodeDetector:
         self.find_unreachable_blocks()
         if self.tree:
             self.find_code_after_terminator()
+        # De-duplicate unreachable issues that refer to the same line (for
+        # example a block flagged as unreachable and the same code flagged as
+        # "code after terminator"), keeping the first occurrence.
+        seen = set()
+        deduped = []
+        for issue in self.unreachable_code:
+            key = issue.get('lineno')
+            if key in seen:
+                continue
+            seen.add(key)
+            deduped.append(issue)
+        self.unreachable_code = deduped
         return self.unreachable_code
         
     def find_unreachable_blocks(self):
@@ -28,15 +40,31 @@ class DeadCodeDetector:
                 if succ not in reachable:
                     worklist.append(succ)
                     
+        seen_names = set()
         for block in self.cfg.blocks:
-            if block not in reachable and block != self.cfg.exit:
-                self.dead_blocks.append(block)
-                self.unreachable_code.append({
-                    'type': 'unreachable_block',
-                    'block': block.name,
-                    'message': f'Block {block.name} is unreachable',
-                    'severity': 'warning'
-                })
+            if block in reachable or block == self.cfg.exit:
+                continue
+            # Only report blocks that actually contain code; empty blocks
+            # (e.g. an empty "after_return" with nothing after the return)
+            # are not real unreachable code.
+            if not block.statements:
+                continue
+            # De-duplicate blocks that share a name (e.g. multiple
+            # "after_return" blocks) so the same problem is not reported
+            # several times.
+            if block.name in seen_names:
+                continue
+            seen_names.add(block.name)
+            
+            lineno = getattr(block.statements[0], 'lineno', None) or 0
+            self.dead_blocks.append(block)
+            self.unreachable_code.append({
+                'type': 'unreachable_block',
+                'block': block.name,
+                'lineno': lineno,
+                'message': f'Block {block.name} is unreachable',
+                'severity': 'warning'
+            })
                 
     def find_code_after_terminator(self):
         visitor = DeadCodeVisitor()
