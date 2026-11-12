@@ -1,0 +1,116 @@
+{"file": "flask/examples/tutorial/flaskr/blog.py", "lineno": 121, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'get_post' expects 2 args, got 1"}
+{"file": "flask/src/flask/cli.py", "lineno": 353, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'locate_app' expects 3 args, got 2"}
+{"file": "flask/src/flask/cli.py", "lineno": 349, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'locate_app' expects 3 args, got 2"}
+{"file": "requests/src/requests/sessions.py", "lineno": 553, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'merge_hooks' expects 3 args, got 2"}
+{"file": "requests/src/requests/sessions.py", "lineno": 866, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'merge_setting' expects 3 args, got 2"}
+{"file": "flask/tests/test_basic.py", "lineno": 599, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'expect' expects 2 args, got 1"}
+{"file": "requests/src/requests/cookies.py", "lineno": 238, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'remove_cookie_by_name' expects 4 args, got 2"}
+{"file": "requests/src/requests/sessions.py", "lineno": 551, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'merge_setting' expects 3 args, got 2"}
+{"file": "requests/src/requests/sessions.py", "lineno": 864, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'merge_setting' expects 3 args, got 2"}
+{"file": "requests/src/requests/utils.py", "lineno": 879, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'should_bypass_proxies' expects 2 args, got 1"}
+{"file": "flask/tests/test_basic.py", "lineno": 532, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'run_test' expects 1 args, got 0"}
+{"file": "requests/src/requests/utils.py", "lineno": 957, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'default_user_agent' expects 1 args, got 0"}
+{"file": "requests/src/requests/sessions.py", "lineno": 863, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'merge_setting' expects 3 args, got 2"}
+{"file": "flask/tests/test_basic.py", "lineno": 597, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'expect' expects 2 args, got 1"}
+{"file": "requests/tests/testserver/server.py", "lineno": 54, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'consume_socket_content' expects 2 args, got 1"}
+{"file": "requests/src/requests/utils.py", "lineno": 932, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'should_bypass_proxies' expects 2 args, got 1"}
+{"file": "requests/src/requests/sessions.py", "lineno": 865, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'merge_setting' expects 3 args, got 2"}
+{"file": "flask/tests/test_cli.py", "lineno": 486, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'invoke' expects 3 args, got 1"}
+{"file": "requests/src/requests/sessions.py", "lineno": 547, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'merge_setting' expects 3 args, got 2"}
+{"file": "flask/examples/tutorial/flaskr/blog.py", "lineno": 90, "type": "arg_count_mismatch", "cat": "arg_count_mismatch", "message": "Function 'get_post' expects 2 args, got 1"}
+{"file": "flask/src/flask/config.py", "lineno": 126, "type": "long_function", "cat": "complexity", "message": "Function 'from_prefixed_env' has 60 lines (consider splitting)"}
+{"file": "flask/src/flask/sansio/scaffold.py", "lineno": 376, "type": "long_function", "cat": "complexity", "message": "Function 'add_url_rule' has 66 lines (consider splitting)"}
+{"file": "flask/src/flask/helpers.py", "lineno": 417, "type": "long_function", "cat": "complexity", "message": "Function 'send_file' has 124 lines (consider splitting)"}
+{"file": "flask/tests/test_user_error_handler.py", "lineno": 163, "type": "long_function", "cat": "complexity", "message": "Function 'test_default_error_handler' has 52 lines (consider splitting)"}
+{"file": "requests/src/requests/utils.py", "lineno": 810, "type": "long_function", "cat": "complexity", "message": "Function 'should_bypass_proxies' has 61 lines (consider splitting)"}
+{"file": "flask/src/flask/app.py", "lineno": 507, "type": "long_function", "cat": "complexity", "message": "Function 'create_url_adapter' has 58 lines (consider splitting)"}
+{"file": "flask/src/flask/app.py", "lineno": 1373, "type": "deep_nesting", "cat": "complexity", "message": "Nesting depth 5 exceeds maximum 4"}
+{"file": "requests/src/requests/models.py", "lineno": 483, "type": "high_complexity", "cat": "complexity", "message": "Function 'prepare_url' has complexity 18 (max 10)"}
+{"file": "requests/src/requests/models.py", "lineno": 183, "type": "high_complexity", "cat": "complexity", "message": "Function '_encode_files' has complexity 19 (max 10)"}
+{"file": "requests/src/requests/sessions.py", "lineno": 186, "type": "long_function", "cat": "complexity", "message": "Function 'resolve_redirects' has 122 lines (consider splitting)"}
+{"file": "requests/src/requests/auth.py", "lineno": 157, "type": "long_function", "cat": "complexity", "message": "Function 'build_digest_header' has 110 lines (consider splitting)"}
+{"file": "flask/src/flask/app.py", "lineno": 641, "type": "long_function", "cat": "complexity", "message": "Function 'run' has 124 lines (consider splitting)"}
+{"file": "flask/src/flask/app.py", "lineno": 1627, "type": "long_function", "cat": "complexity", "message": "Function 'wsgi_app' has 51 lines (consider splitting)"}
+{"file": "requests/src/requests/models.py", "lineno": 171, "type": "deep_nesting", "cat": "complexity", "message": "Nesting depth 6 exceeds maximum 4"}
+{"file": "requests/src/requests/models.py", "lineno": 483, "type": "long_function", "cat": "complexity", "message": "Function 'prepare_url' has 81 lines (consider splitting)"}
+{"file": "requests/src/requests/utils.py", "lineno": 188, "type": "deep_nesting", "cat": "complexity", "message": "Nesting depth 5 exceeds maximum 4"}
+{"file": "requests/src/requests/adapters.py", "lineno": 307, "type": "high_complexity", "cat": "complexity", "message": "Function 'cert_verify' has complexity 14 (max 10)"}
+{"file": "requests/src/requests/auth.py", "lineno": 157, "type": "high_complexity", "cat": "complexity", "message": "Function 'build_digest_header' has complexity 19 (max 10)"}
+{"file": "flask/src/flask/debughelpers.py", "lineno": 124, "type": "high_complexity", "cat": "complexity", "message": "Function 'explain_template_loading_attempts' has complexity 13 (max 10)"}
+{"file": "flask/src/flask/helpers.py", "lineno": 587, "type": "long_function", "cat": "complexity", "message": "Function 'get_root_path' has 55 lines (consider splitting)"}
+{"file": "requests/tests/test_requests.py", "lineno": 2157, "type": "unreachable_block", "cat": "dead_code", "message": "Block for_header is unreachable"}
+{"file": "flask/src/flask/sansio/app.py", "lineno": 599, "type": "unreachable_block", "cat": "dead_code", "message": "Block iter_blueprints_entry is unreachable"}
+{"file": "requests/tests/test_requests.py", "lineno": 2409, "type": "unreachable_block", "cat": "dead_code", "message": "Block test_update_retains_unchanged_entry is unreachable"}
+{"file": "requests/tests/test_utils.py", "lineno": 400, "type": "unreachable_block", "cat": "dead_code", "message": "Block test_precedence_entry is unreachable"}
+{"file": "flask/tests/test_blueprints.py", "lineno": 296, "type": "unreachable_block", "cat": "dead_code", "message": "Block foo_bar_foo_entry is unreachable"}
+{"file": "flask/tests/test_blueprints.py", "lineno": 574, "type": "unreachable_block", "cat": "dead_code", "message": "Block test_add_template_test_with_name_entry is unreachable"}
+{"file": "flask/src/flask/sansio/app.py", "lineno": 614, "type": "unreachable_block", "cat": "dead_code", "message": "Block add_url_rule_entry is unreachable"}
+{"file": "flask/tests/test_signals.py", "lineno": 106, "type": "unreachable_block", "cat": "dead_code", "message": "Block record_exit is unreachable"}
+{"file": "flask/tests/test_testing.py", "lineno": 355, "type": "unreachable_block", "cat": "dead_code", "message": "Block hello_command_entry is unreachable"}
+{"file": "flask/tests/test_user_error_handler.py", "lineno": 164, "type": "unreachable_block", "cat": "dead_code", "message": "Block test_default_error_handler_entry is unreachable"}
+{"file": "requests/src/requests/cookies.py", "lineno": 277, "type": "unreachable_block", "cat": "dead_code", "message": "Block values_entry is unreachable"}
+{"file": "flask/tests/test_basic.py", "lineno": 1163, "type": "unreachable_block", "cat": "dead_code", "message": "Block from_text_headers_entry is unreachable"}
+{"file": "requests/tests/test_requests.py", "lineno": 2908, "type": "unreachable_block", "cat": "dead_code", "message": "Block test_json_decode_persists_doc_attr_entry is unreachable"}
+{"file": "flask/tests/test_basic.py", "lineno": 1239, "type": "unreachable_block", "cat": "dead_code", "message": "Block test_response_type_errors_entry is unreachable"}
+{"file": "flask/src/flask/json/tag.py", "lineno": 119, "type": "unreachable_block", "cat": "dead_code", "message": "Block to_python_exit is unreachable"}
+{"file": "flask/src/flask/sansio/app.py", "lineno": 941, "type": "unreachable_block", "cat": "dead_code", "message": "Block redirect_entry is unreachable"}
+{"file": "flask/tests/test_blueprints.py", "lineno": 519, "type": "unreachable_block", "cat": "dead_code", "message": "Block boolean_2_entry is unreachable"}
+{"file": "flask/tests/test_blueprints.py", "lineno": 253, "type": "unreachable_block", "cat": "dead_code", "message": "Block test_dotted_names_from_app_entry is unreachable"}
+{"file": "flask/tests/test_blueprints.py", "lineno": 929, "type": "unreachable_block", "cat": "dead_code", "message": "Block app_teardown2_entry is unreachable"}
+{"file": "flask/src/flask/app.py", "lineno": 1682, "type": "unreachable_block", "cat": "dead_code", "message": "Block __call___entry is unreachable"}
+{"file": "requests/tests/test_requests.py", "lineno": 1623, "type": "pickle_loads", "cat": "security", "message": "Using pickle.loads() can execute arbitrary code"}
+{"file": "requests/tests/test_requests.py", "lineno": 1593, "type": "pickle_loads", "cat": "security", "message": "Using pickle.loads() can execute arbitrary code"}
+{"file": "flask/src/flask/config.py", "lineno": 209, "type": "dangerous_function", "cat": "security", "message": "Use of dangerous function 'exec'"}
+{"file": "flask/src/flask/cli.py", "lineno": 1022, "type": "dangerous_function", "cat": "security", "message": "Use of dangerous function 'eval'"}
+{"file": "requests/tests/test_requests.py", "lineno": 1550, "type": "pickle_loads", "cat": "security", "message": "Using pickle.loads() can execute arbitrary code"}
+{"file": "flask/src/flask/cli.py", "lineno": 1022, "type": "dangerous_function", "cat": "security", "message": "Use of dangerous function 'compile'"}
+{"file": "flask/src/flask/config.py", "lineno": 209, "type": "dangerous_function", "cat": "security", "message": "Use of dangerous function 'compile'"}
+{"file": "requests/tests/test_requests.py", "lineno": 1578, "type": "pickle_loads", "cat": "security", "message": "Using pickle.loads() can execute arbitrary code"}
+{"file": "requests/tests/test_utils.py", "lineno": 443, "type": "hardcoded_password", "cat": "security", "message": "Hardcoded secret detected"}
+{"file": "requests/tests/test_requests.py", "lineno": 1554, "type": "pickle_loads", "cat": "security", "message": "Using pickle.loads() can execute arbitrary code"}
+{"file": "requests/tests/test_requests.py", "lineno": 1562, "type": "pickle_loads", "cat": "security", "message": "Using pickle.loads() can execute arbitrary code"}
+{"file": "flask/src/flask/helpers.py", "lineno": 623, "type": "dangerous_function", "cat": "security", "message": "Use of dangerous function '__import__'"}
+{"file": "flask/examples/tutorial/tests/conftest.py", "lineno": 51, "type": "hardcoded_password", "cat": "security", "message": "Hardcoded secret detected"}
+{"file": "flask/src/flask/cli.py", "lineno": 245, "type": "dangerous_function", "cat": "security", "message": "Use of dangerous function '__import__'"}
+{"file": "requests/src/requests/packages.py", "lineno": 9, "type": "dangerous_function", "cat": "security", "message": "Use of dangerous function '__import__'"}
+{"file": "requests/tests/test_requests.py", "lineno": 3093, "type": "pickle_loads", "cat": "security", "message": "Using pickle.loads() can execute arbitrary code"}
+{"file": "flask/src/flask/debughelpers.py", "lineno": 143, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'line' may be used before definition"}
+{"file": "requests/src/requests/models.py", "lineno": 1015, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'pending' may be used before definition"}
+{"file": "flask/tests/test_basic.py", "lineno": 1758, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'flask' may be used before definition"}
+{"file": "requests/src/requests/models.py", "lineno": 203, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'new_fields' may be used before definition"}
+{"file": "flask/src/flask/app.py", "lineno": 732, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'server_url' may be used before definition"}
+{"file": "requests/tests/test_lowlevel.py", "lineno": 286, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable '_proxy_combos' may be used before definition"}
+{"file": "requests/src/requests/cookies.py", "lineno": 620, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'update_method' may be used before definition"}
+{"file": "requests/tests/test_utils.py", "lineno": 137, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'super_len' may be used before definition"}
+{"file": "requests/tests/test_utils.py", "lineno": 366, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'extracted_path' may be used before definition"}
+{"file": "requests/tests/test_testserver.py", "lineno": 124, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'time' may be used before definition"}
+{"file": "flask/tests/test_blueprints.py", "lineno": 296, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'flask' may be used before definition"}
+{"file": "flask/src/flask/ctx.py", "lineno": 323, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 't' may be used before definition"}
+{"file": "flask/tests/test_blueprints.py", "lineno": 511, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'flask' may be used before definition"}
+{"file": "flask/src/flask/globals.py", "lineno": 8, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable '_AppCtxGlobals' may be used before definition"}
+{"file": "requests/tests/test_requests.py", "lineno": 257, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'e' may be used before definition"}
+{"file": "flask/tests/test_basic.py", "lineno": 1406, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'pytest' may be used before definition"}
+{"file": "requests/src/requests/sessions.py", "lineno": 231, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'previous_fragment' may be used before definition"}
+{"file": "requests/tests/test_lowlevel.py", "lineno": 298, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'pytest' may be used before definition"}
+{"file": "requests/tests/test_requests.py", "lineno": 2918, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'requests' may be used before definition"}
+{"file": "flask/src/flask/cli.py", "lineno": 1062, "type": "undefined_variable", "cat": "undefined_variable", "message": "Variable 'current_app' may be used before definition"}
+{"file": "flask/src/flask/sansio/app.py", "lineno": 170, "type": "unused_variable", "cat": "unused", "message": "Variable 'jinja_environment' is assigned but never used"}
+{"file": "flask/src/flask/sessions.py", "lineno": 293, "type": "unused_variable", "cat": "unused", "message": "Variable 'digest_method' is assigned but never used"}
+{"file": "flask/src/flask/sessions.py", "lineno": 233, "type": "unused_function", "cat": "unused", "message": "Function 'should_set_cookie' is defined but never called"}
+{"file": "flask/src/flask/app.py", "lineno": 72, "type": "unused_function", "cat": "unused", "message": "Function '_make_timedelta' is defined but never called"}
+{"file": "flask/tests/test_reqctx.py", "lineno": 191, "type": "unused_function", "cat": "unused", "message": "Function 'index' is defined but never called"}
+{"file": "requests/src/requests/adapters.py", "lineno": 11, "type": "unused_import", "cat": "unused", "message": "Imported module 'os.path' is never used"}
+{"file": "flask/tests/test_basic.py", "lineno": 1746, "type": "unused_function", "cat": "unused", "message": "Function 'foo' is defined but never called"}
+{"file": "flask/src/flask/json/tag.py", "lineno": 122, "type": "unused_function", "cat": "unused", "message": "Function 'check' is defined but never called"}
+{"file": "flask/examples/javascript/tests/conftest.py", "lineno": 14, "type": "unused_function", "cat": "unused", "message": "Function 'client' is defined but never called"}
+{"file": "flask/tests/test_user_error_handler.py", "lineno": 152, "type": "unused_function", "cat": "unused", "message": "Function 'app_test' is defined but never called"}
+{"file": "requests/src/requests/sessions.py", "lineno": 186, "type": "unused_function", "cat": "unused", "message": "Function 'resolve_redirects' is defined but never called"}
+{"file": "flask/tests/type_check/typing_error_handler.py", "lineno": 32, "type": "unused_function", "cat": "unused", "message": "Function 'handle_multiple' is defined but never called"}
+{"file": "flask/src/flask/__init__.py", "lineno": 33, "type": "unused_import", "cat": "unused", "message": "Imported module 'template_rendered' is never used"}
+{"file": "flask/tests/test_views.py", "lineno": 168, "type": "unused_function", "cat": "unused", "message": "Function 'get' is defined but never called"}
+{"file": "flask/src/flask/__init__.py", "lineno": 2, "type": "unused_import", "cat": "unused", "message": "Imported module 'Flask' is never used"}
+{"file": "flask/tests/test_reqctx.py", "lineno": 1, "type": "unused_import", "cat": "unused", "message": "Imported module 'annotations' is never used"}
+{"file": "flask/tests/test_basic.py", "lineno": 1093, "type": "unused_function", "cat": "unused", "message": "Function 'fail' is defined but never called"}
+{"file": "flask/src/flask/config.py", "lineno": 126, "type": "unused_function", "cat": "unused", "message": "Function 'from_prefixed_env' is defined but never called"}
+{"file": "flask/tests/test_converters.py", "lineno": 10, "type": "unused_function", "cat": "unused", "message": "Function 'to_python' is defined but never called"}
+{"file": "flask/src/flask/app.py", "lineno": 69, "type": "unused_variable", "cat": "unused", "message": "Variable 'T_template_test' is assigned but never used"}

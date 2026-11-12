@@ -1,0 +1,1035 @@
+===== 1 | flask/examples/tutorial/flaskr/blog.py:121 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'get_post' expects 2 args, got 1
+ 118|     Ensures that the post exists and that the logged in user is the
+ 119|     author of the post.
+ 120|     """
+ 121|     get_post(id)
+ 122|     db = get_db()
+ 123|     db.execute("DELETE FROM post WHERE id = ?", (id,))
+
+===== 2 | flask/src/flask/cli.py:353 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'locate_app' expects 3 args, got 2
+ 350|             else:
+ 351|                 for path in ("wsgi.py", "app.py"):
+ 352|                     import_name = prepare_import(path)
+ 353|                     app = locate_app(import_name, None, raise_if_not_found=False)
+ 354| 
+ 355|                     if app is not None:
+
+===== 3 | flask/src/flask/cli.py:349 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'locate_app' expects 3 args, got 2
+ 346|                     re.split(r":(?![\\/])", self.app_import_path, maxsplit=1) + [None]
+ 347|                 )[:2]
+ 348|                 import_name = prepare_import(path)
+ 349|                 app = locate_app(import_name, name)
+ 350|             else:
+ 351|                 for path in ("wsgi.py", "app.py"):
+
+===== 4 | requests/src/requests/sessions.py:553 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'merge_hooks' expects 3 args, got 2
+ 550|             params=merge_setting(request.params, self.params),
+ 551|             auth=merge_setting(auth, self.auth),
+ 552|             cookies=merged_cookies,
+ 553|             hooks=merge_hooks(request.hooks, self.hooks),
+ 554|         )
+ 555|         return p
+
+===== 5 | requests/src/requests/sessions.py:866 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'merge_setting' expects 3 args, got 2
+ 863|         proxies = merge_setting(proxies, self.proxies)
+ 864|         stream = merge_setting(stream, self.stream)
+ 865|         verify = merge_setting(verify, self.verify)
+ 866|         cert = merge_setting(cert, self.cert)
+ 867| 
+ 868|         return {"proxies": proxies, "stream": stream, "verify": verify, "cert": cert}
+
+===== 6 | flask/tests/test_basic.py:599 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'expect' expects 2 args, got 1
+ 596|     expect("/getitem")
+ 597|     expect("/setdefault")
+ 598|     expect("/clear")
+ 599|     expect("/vary-cookie-header-set")
+ 600|     expect("/vary-header-set", "Accept-Encoding, Accept-Language, Cookie")
+ 601|     expect("/no-vary-header", None)
+
+===== 7 | requests/src/requests/cookies.py:238 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'remove_cookie_by_name' expects 4 args, got 2
+ 235|         """
+ 236|         # support client code that unsets cookies by assignment of a None value:
+ 237|         if value is None:
+ 238|             remove_cookie_by_name(
+ 239|                 self, name, domain=kwargs.get("domain"), path=kwargs.get("path")
+ 240|             )
+
+===== 8 | requests/src/requests/sessions.py:551 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'merge_setting' expects 3 args, got 2
+ 548|                 request.headers, self.headers, dict_class=CaseInsensitiveDict
+ 549|             ),
+ 550|             params=merge_setting(request.params, self.params),
+ 551|             auth=merge_setting(auth, self.auth),
+ 552|             cookies=merged_cookies,
+ 553|             hooks=merge_hooks(request.hooks, self.hooks),
+
+===== 9 | requests/src/requests/sessions.py:864 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'merge_setting' expects 3 args, got 2
+ 861| 
+ 862|         # Merge all the kwargs.
+ 863|         proxies = merge_setting(proxies, self.proxies)
+ 864|         stream = merge_setting(stream, self.stream)
+ 865|         verify = merge_setting(verify, self.verify)
+ 866|         cert = merge_setting(cert, self.cert)
+
+===== 10 | requests/src/requests/utils.py:879 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'should_bypass_proxies' expects 2 args, got 1
+ 876| 
+ 877|     :rtype: dict
+ 878|     """
+ 879|     if should_bypass_proxies(url, no_proxy=no_proxy):
+ 880|         return {}
+ 881|     else:
+
+===== 11 | flask/tests/test_basic.py:532 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'run_test' expects 1 args, got 0
+ 529| 
+ 530|     is_permanent = True
+ 531|     app.config["SESSION_REFRESH_EACH_REQUEST"] = False
+ 532|     run_test(expect_header=False)
+ 533| 
+ 534|     is_permanent = False
+
+===== 12 | requests/src/requests/utils.py:957 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'default_user_agent' expects 1 args, got 0
+ 954|     """
+ 955|     return CaseInsensitiveDict(
+ 956|         {
+ 957|             "User-Agent": default_user_agent(),
+ 958|             "Accept-Encoding": DEFAULT_ACCEPT_ENCODING,
+ 959|             "Accept": "*/*",
+
+===== 13 | requests/src/requests/sessions.py:863 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'merge_setting' expects 3 args, got 2
+ 860|                 )
+ 861| 
+ 862|         # Merge all the kwargs.
+ 863|         proxies = merge_setting(proxies, self.proxies)
+ 864|         stream = merge_setting(stream, self.stream)
+ 865|         verify = merge_setting(verify, self.verify)
+
+===== 14 | flask/tests/test_basic.py:597 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'expect' expects 2 args, got 1
+ 594|     expect("/set")
+ 595|     expect("/get")
+ 596|     expect("/getitem")
+ 597|     expect("/setdefault")
+ 598|     expect("/clear")
+ 599|     expect("/vary-cookie-header-set")
+
+===== 15 | requests/tests/testserver/server.py:54 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'consume_socket_content' expects 2 args, got 1
+  51|     @classmethod
+  52|     def text_response_server(cls, text, request_timeout=0.5, **kwargs):
+  53|         def text_response_handler(sock):
+  54|             request_content = consume_socket_content(sock, timeout=request_timeout)
+  55|             sock.send(text.encode("utf-8"))
+  56| 
+
+===== 16 | requests/src/requests/utils.py:932 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'should_bypass_proxies' expects 2 args, got 1
+ 929|     no_proxy = proxies.get("no_proxy")
+ 930|     new_proxies = proxies.copy()
+ 931| 
+ 932|     if trust_env and not should_bypass_proxies(url, no_proxy=no_proxy):
+ 933|         environ_proxies = get_environ_proxies(url, no_proxy=no_proxy)
+ 934| 
+
+===== 17 | requests/src/requests/sessions.py:865 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'merge_setting' expects 3 args, got 2
+ 862|         # Merge all the kwargs.
+ 863|         proxies = merge_setting(proxies, self.proxies)
+ 864|         stream = merge_setting(stream, self.stream)
+ 865|         verify = merge_setting(verify, self.verify)
+ 866|         cert = merge_setting(cert, self.cert)
+ 867| 
+
+===== 18 | flask/tests/test_cli.py:486 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'invoke' expects 3 args, got 1
+ 483|             invoke(["routes", "-s", "rule"]).output,
+ 484|         )
+ 485|         match_order = [r.endpoint for r in app.url_map.iter_rules()]
+ 486|         self.expect_order(match_order, invoke(["routes", "-s", "match"]).output)
+ 487| 
+ 488|     def test_all_methods(self, invoke):
+
+===== 19 | requests/src/requests/sessions.py:547 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'merge_setting' expects 3 args, got 2
+ 544|             files=request.files,
+ 545|             data=request.data,
+ 546|             json=request.json,
+ 547|             headers=merge_setting(
+ 548|                 request.headers, self.headers, dict_class=CaseInsensitiveDict
+ 549|             ),
+
+===== 20 | flask/examples/tutorial/flaskr/blog.py:90 | arg_count_mismatch | cat=arg_count_mismatch =====
+Message: Function 'get_post' expects 2 args, got 1
+  87| @login_required
+  88| def update(id):
+  89|     """Update a post if the current user is the author."""
+  90|     post = get_post(id)
+  91| 
+  92|     if request.method == "POST":
+
+===== 21 | flask/src/flask/config.py:126 | long_function | cat=complexity =====
+Message: Function 'from_prefixed_env' has 60 lines (consider splitting)
+ 123|             )
+ 124|         return self.from_pyfile(rv, silent=silent)
+ 125| 
+ 126|     def from_prefixed_env(
+ 127|         self, prefix: str = "FLASK", *, loads: t.Callable[[str], t.Any] = json.loads
+ 128|     ) -> bool:
+
+===== 22 | flask/src/flask/sansio/scaffold.py:376 | long_function | cat=complexity =====
+Message: Function 'add_url_rule' has 66 lines (consider splitting)
+ 373|         return decorator
+ 374| 
+ 375|     @setupmethod
+ 376|     def add_url_rule(
+ 377|         self,
+ 378|         rule: str,
+
+===== 23 | flask/src/flask/helpers.py:417 | long_function | cat=complexity =====
+Message: Function 'send_file' has 124 lines (consider splitting)
+ 414|     return kwargs
+ 415| 
+ 416| 
+ 417| def send_file(
+ 418|     path_or_file: os.PathLike[t.AnyStr] | str | t.IO[bytes],
+ 419|     mimetype: str | None = None,
+
+===== 24 | flask/tests/test_user_error_handler.py:163 | long_function | cat=complexity =====
+Message: Function 'test_default_error_handler' has 52 lines (consider splitting)
+ 160|     assert c.get("/bp/error").data == b"bp-error"
+ 161| 
+ 162| 
+ 163| def test_default_error_handler():
+ 164|     bp = flask.Blueprint("bp", __name__)
+ 165| 
+
+===== 25 | requests/src/requests/utils.py:810 | long_function | cat=complexity =====
+Message: Function 'should_bypass_proxies' has 61 lines (consider splitting)
+ 807|                 os.environ[env_name] = old_value
+ 808| 
+ 809| 
+ 810| def should_bypass_proxies(url: str, no_proxy: str | None) -> bool:
+ 811|     """
+ 812|     Returns whether we should bypass proxies or not.
+
+===== 26 | flask/src/flask/app.py:507 | long_function | cat=complexity =====
+Message: Function 'create_url_adapter' has 58 lines (consider splitting)
+ 504|         rv.policies["json.dumps_function"] = self.json.dumps
+ 505|         return rv
+ 506| 
+ 507|     def create_url_adapter(self, request: Request | None) -> MapAdapter | None:
+ 508|         """Creates a URL adapter for the given request. The URL adapter
+ 509|         is created at a point where the request context is not yet set
+
+===== 27 | flask/src/flask/app.py:1373 | deep_nesting | cat=complexity =====
+Message: Nesting depth 5 exceeds maximum 4
+1370|             elif isinstance(rv, BaseResponse) or callable(rv):
+1371|                 # evaluate a WSGI callable, or coerce a different response
+1372|                 # class to the correct type
+1373|                 try:
+1374|                     rv = self.response_class.force_type(
+1375|                         rv,  # type: ignore[arg-type]
+
+===== 28 | requests/src/requests/models.py:483 | high_complexity | cat=complexity =====
+Message: Function 'prepare_url' has complexity 18 (max 10)
+ 480|             raise UnicodeError
+ 481|         return host
+ 482| 
+ 483|     def prepare_url(
+ 484|         self,
+ 485|         url: _t.UriType,
+
+===== 29 | requests/src/requests/models.py:183 | high_complexity | cat=complexity =====
+Message: Function '_encode_files' has complexity 19 (max 10)
+ 180|             return data  # type: ignore[return-value]  # unreachable for valid _t.DataType
+ 181| 
+ 182|     @staticmethod
+ 183|     def _encode_files(
+ 184|         files: _t.FilesType, data: _t.RawDataType | None
+ 185|     ) -> tuple[bytes, str]:
+
+===== 30 | requests/src/requests/sessions.py:186 | long_function | cat=complexity =====
+Message: Function 'resolve_redirects' has 122 lines (consider splitting)
+ 183|         # Standard case: root URI must match
+ 184|         return changed_port or changed_scheme
+ 185| 
+ 186|     def resolve_redirects(
+ 187|         self,
+ 188|         resp: Response,
+
+===== 31 | requests/src/requests/auth.py:157 | long_function | cat=complexity =====
+Message: Function 'build_digest_header' has 110 lines (consider splitting)
+ 154|             self._thread_local.pos = None
+ 155|             self._thread_local.num_401_calls = None
+ 156| 
+ 157|     def build_digest_header(self, method: str, url: str) -> str | None:
+ 158|         """
+ 159|         :rtype: str
+
+===== 32 | flask/src/flask/app.py:641 | long_function | cat=complexity =====
+Message: Function 'run' has 124 lines (consider splitting)
+ 638|             rv.update(processor())
+ 639|         return rv
+ 640| 
+ 641|     def run(
+ 642|         self,
+ 643|         host: str | None = None,
+
+===== 33 | flask/src/flask/app.py:1627 | long_function | cat=complexity =====
+Message: Function 'wsgi_app' has 51 lines (consider splitting)
+1624| 
+1625|         return self.request_context(environ)
+1626| 
+1627|     def wsgi_app(
+1628|         self, environ: WSGIEnvironment, start_response: StartResponse
+1629|     ) -> cabc.Iterable[bytes]:
+
+===== 34 | requests/src/requests/models.py:171 | deep_nesting | cat=complexity =====
+Message: Nesting depth 6 exceeds maximum 4
+ 168|                 if isinstance(vs, basestring) or not hasattr(vs, "__iter__"):
+ 169|                     vs = [vs]
+ 170|                 for v in vs:
+ 171|                     if v is not None:
+ 172|                         result.append(
+ 173|                             (
+
+===== 35 | requests/src/requests/models.py:483 | long_function | cat=complexity =====
+Message: Function 'prepare_url' has 81 lines (consider splitting)
+ 480|             raise UnicodeError
+ 481|         return host
+ 482| 
+ 483|     def prepare_url(
+ 484|         self,
+ 485|         url: _t.UriType,
+
+===== 36 | requests/src/requests/utils.py:188 | deep_nesting | cat=complexity =====
+Message: Nesting depth 5 exceeds maximum 4
+ 185| 
+ 186|             # Having used fstat to determine the file length, we need to
+ 187|             # confirm that this file was opened up in binary mode.
+ 188|             if "b" not in o.mode:
+ 189|                 warnings.warn(
+ 190|                     (
+
+===== 37 | requests/src/requests/adapters.py:307 | high_complexity | cat=complexity =====
+Message: Function 'cert_verify' has complexity 14 (max 10)
+ 304| 
+ 305|         return manager
+ 306| 
+ 307|     def cert_verify(
+ 308|         self, conn: Any, url: str, verify: _t.VerifyType, cert: _t.CertType
+ 309|     ) -> None:
+
+===== 38 | requests/src/requests/auth.py:157 | high_complexity | cat=complexity =====
+Message: Function 'build_digest_header' has complexity 19 (max 10)
+ 154|             self._thread_local.pos = None
+ 155|             self._thread_local.num_401_calls = None
+ 156| 
+ 157|     def build_digest_header(self, method: str, url: str) -> str | None:
+ 158|         """
+ 159|         :rtype: str
+
+===== 39 | flask/src/flask/debughelpers.py:124 | high_complexity | cat=complexity =====
+Message: Function 'explain_template_loading_attempts' has complexity 13 (max 10)
+ 121|         yield f"{key}: {value!r}"
+ 122| 
+ 123| 
+ 124| def explain_template_loading_attempts(
+ 125|     app: App,
+ 126|     template: str,
+
+===== 40 | flask/src/flask/helpers.py:587 | long_function | cat=complexity =====
+Message: Function 'get_root_path' has 55 lines (consider splitting)
+ 584|     )
+ 585| 
+ 586| 
+ 587| def get_root_path(import_name: str) -> str:
+ 588|     """Find the root path of a package, or the path that contains a
+ 589|     module. If it cannot be found, returns the current working
+
+===== 41 | requests/tests/test_requests.py:2157 | unreachable_block | cat=dead_code =====
+Message: Block for_header is unreachable
+2154|         r = requests.get(httpbin("redirect/5"))
+2155|         total = r.history[-1].history
+2156|         i = 0
+2157|         for item in r.history:
+2158|             assert item.history == total[0:i]
+2159|             i += 1
+
+===== 42 | flask/src/flask/sansio/app.py:599 | unreachable_block | cat=dead_code =====
+Message: Block iter_blueprints_entry is unreachable
+ 596|         blueprint.register(self, options)
+ 597| 
+ 598|     def iter_blueprints(self) -> t.ValuesView[Blueprint]:
+ 599|         """Iterates over all blueprints by the order they were registered.
+ 600| 
+ 601|         .. versionadded:: 0.11
+
+===== 43 | requests/tests/test_requests.py:2409 | unreachable_block | cat=dead_code =====
+Message: Block test_update_retains_unchanged_entry is unreachable
+2406|         assert cid["bar"] == "anotherbar"
+2407| 
+2408|     def test_update_retains_unchanged(self):
+2409|         cid = CaseInsensitiveDict({"foo": "foo", "bar": "bar"})
+2410|         cid.update({"foo": "newfoo"})
+2411|         assert cid["bar"] == "bar"
+
+===== 44 | requests/tests/test_utils.py:400 | unreachable_block | cat=dead_code =====
+Message: Block test_precedence_entry is unreachable
+ 397|         assert encodings[0] == "UTF-8"
+ 398| 
+ 399|     def test_precedence(self):
+ 400|         content = """
+ 401|         <?xml version="1.0" encoding="XML"?>
+ 402|         <meta charset="HTML5">
+
+===== 45 | flask/tests/test_blueprints.py:296 | unreachable_block | cat=dead_code =====
+Message: Block foo_bar_foo_entry is unreachable
+ 293| 
+ 294|     @bp.route("/bar/123", endpoint="123")
+ 295|     def foo_bar_foo():
+ 296|         return flask.request.endpoint
+ 297| 
+ 298|     @bp.route("/bar/foo")
+
+===== 46 | flask/tests/test_blueprints.py:574 | unreachable_block | cat=dead_code =====
+Message: Block test_add_template_test_with_name_entry is unreachable
+ 571| 
+ 572| 
+ 573| def test_add_template_test_with_name(app):
+ 574|     bp = flask.Blueprint("bp", __name__)
+ 575| 
+ 576|     def is_boolean(value):
+
+===== 47 | flask/src/flask/sansio/app.py:614 | unreachable_block | cat=dead_code =====
+Message: Block add_url_rule_entry is unreachable
+ 611|         provide_automatic_options: bool | None = None,
+ 612|         **options: t.Any,
+ 613|     ) -> None:
+ 614|         if endpoint is None:
+ 615|             endpoint = _endpoint_from_view_func(view_func)  # type: ignore
+ 616|         options["endpoint"] = endpoint
+
+===== 48 | flask/tests/test_signals.py:106 | unreachable_block | cat=dead_code =====
+Message: Block record_exit is unreachable
+ 103|     def record(sender, exception):
+ 104|         recorded.append(exception)
+ 105| 
+ 106|     flask.got_request_exception.connect(record, app)
+ 107|     try:
+ 108|         assert app.test_client().get("/").status_code == 500
+
+===== 49 | flask/tests/test_testing.py:355 | unreachable_block | cat=dead_code =====
+Message: Block hello_command_entry is unreachable
+ 352| def test_cli_invoke(app):
+ 353|     @app.cli.command("hello")
+ 354|     def hello_command():
+ 355|         click.echo("Hello, World!")
+ 356| 
+ 357|     runner = app.test_cli_runner()
+
+===== 50 | flask/tests/test_user_error_handler.py:164 | unreachable_block | cat=dead_code =====
+Message: Block test_default_error_handler_entry is unreachable
+ 161| 
+ 162| 
+ 163| def test_default_error_handler():
+ 164|     bp = flask.Blueprint("bp", __name__)
+ 165| 
+ 166|     @bp.errorhandler(HTTPException)
+
+===== 51 | requests/src/requests/cookies.py:277 | unreachable_block | cat=dead_code =====
+Message: Block values_entry is unreachable
+ 274|             yield cookie.value
+ 275| 
+ 276|     def values(self) -> list[str | None]:  # type: ignore[override]
+ 277|         """Dict-like values() that returns a list of values of cookies from the
+ 278|         jar.
+ 279| 
+
+===== 52 | flask/tests/test_basic.py:1163 | unreachable_block | cat=dead_code =====
+Message: Block from_text_headers_entry is unreachable
+1160| 
+1161|     @app.route("/text_headers")
+1162|     def from_text_headers():
+1163|         return "Hello", {"X-Foo": "Test", "Content-Type": "text/plain; charset=utf-8"}
+1164| 
+1165|     @app.route("/text_status")
+
+===== 53 | requests/tests/test_requests.py:2908 | unreachable_block | cat=dead_code =====
+Message: Block test_json_decode_persists_doc_attr_entry is unreachable
+2905|         assert r.text not in str(excinfo.value)
+2906| 
+2907|     def test_json_decode_persists_doc_attr(self, httpbin):
+2908|         r = requests.get(httpbin("bytes/20"))
+2909|         with pytest.raises(requests.exceptions.JSONDecodeError) as excinfo:
+2910|             r.json()
+
+===== 54 | flask/tests/test_basic.py:1239 | unreachable_block | cat=dead_code =====
+Message: Block test_response_type_errors_entry is unreachable
+1236| 
+1237| 
+1238| def test_response_type_errors():
+1239|     app = flask.Flask(__name__)
+1240|     app.testing = True
+1241| 
+
+===== 55 | flask/src/flask/json/tag.py:119 | unreachable_block | cat=dead_code =====
+Message: Block to_python_exit is unreachable
+ 116|         return {key[:-2]: value[key]}
+ 117| 
+ 118| 
+ 119| class PassDict(JSONTag):
+ 120|     __slots__ = ()
+ 121| 
+
+===== 56 | flask/src/flask/sansio/app.py:941 | unreachable_block | cat=dead_code =====
+Message: Block redirect_entry is unreachable
+ 938|     """
+ 939| 
+ 940|     def redirect(self, location: str, code: int = 303) -> BaseResponse:
+ 941|         """Create a redirect response object.
+ 942| 
+ 943|         This is called by :func:`flask.redirect`, and can be called
+
+===== 57 | flask/tests/test_blueprints.py:519 | unreachable_block | cat=dead_code =====
+Message: Block boolean_2_entry is unreachable
+ 516| 
+ 517|     @bp.app_template_test
+ 518|     def boolean_2(value):
+ 519|         return isinstance(value, bool)
+ 520| 
+ 521|     @bp.app_template_test("my_boolean_custom_name")
+
+===== 58 | flask/tests/test_blueprints.py:253 | unreachable_block | cat=dead_code =====
+Message: Block test_dotted_names_from_app_entry is unreachable
+ 250| 
+ 251| 
+ 252| def test_dotted_names_from_app(app, client):
+ 253|     test = flask.Blueprint("test", __name__)
+ 254| 
+ 255|     @app.route("/")
+
+===== 59 | flask/tests/test_blueprints.py:929 | unreachable_block | cat=dead_code =====
+Message: Block app_teardown2_entry is unreachable
+ 926| 
+ 927|     @app.teardown_request
+ 928|     def app_teardown2(e=None):
+ 929|         assert flask.g.seen.pop() == "app_2"
+ 930| 
+ 931|     @app.context_processor
+
+===== 60 | flask/src/flask/app.py:1682 | unreachable_block | cat=dead_code =====
+Message: Block __call___entry is unreachable
+1679|     def __call__(
+1680|         self, environ: WSGIEnvironment, start_response: StartResponse
+1681|     ) -> cabc.Iterable[bytes]:
+1682|         """The WSGI server calls the Flask application object as the
+1683|         WSGI application. This calls :meth:`wsgi_app`, which can be
+1684|         wrapped to apply middleware.
+
+===== 61 | requests/tests/test_requests.py:1623 | pickle_loads | cat=security =====
+Message: Using pickle.loads() can execute arbitrary code
+1620|         r = requests.Request("GET", httpbin("get"))
+1621|         s = requests.Session()
+1622| 
+1623|         s = pickle.loads(pickle.dumps(s))
+1624|         s.proxies = getproxies()
+1625| 
+
+===== 62 | requests/tests/test_requests.py:1593 | pickle_loads | cat=security =====
+Message: Using pickle.loads() can execute arbitrary code
+1590|         p = r.prepare()
+1591| 
+1592|         # Verify PreparedRequest can be pickled
+1593|         r = pickle.loads(pickle.dumps(p))
+1594|         assert r.url == p.url
+1595|         assert r.headers == p.headers
+
+===== 63 | flask/src/flask/config.py:209 | dangerous_function | cat=security =====
+Message: Use of dangerous function 'exec'
+ 206|         d.__file__ = filename
+ 207|         try:
+ 208|             with open(filename, mode="rb") as config_file:
+ 209|                 exec(compile(config_file.read(), filename, "exec"), d.__dict__)
+ 210|         except OSError as e:
+ 211|             if silent and e.errno in (errno.ENOENT, errno.EISDIR, errno.ENOTDIR):
+
+===== 64 | flask/src/flask/cli.py:1022 | dangerous_function | cat=security =====
+Message: Use of dangerous function 'eval'
+1019|     startup = os.environ.get("PYTHONSTARTUP")
+1020|     if startup and os.path.isfile(startup):
+1021|         with open(startup) as f:
+1022|             eval(compile(f.read(), startup, "exec"), ctx)
+1023| 
+1024|     ctx.update(current_app.make_shell_context())
+
+===== 65 | requests/tests/test_requests.py:1550 | pickle_loads | cat=security =====
+Message: Using pickle.loads() can execute arbitrary code
+1547|         r = requests.get(httpbin("get"))
+1548| 
+1549|         # verify we can pickle the original request
+1550|         assert pickle.loads(pickle.dumps(r.request))
+1551| 
+1552|         # verify we can pickle the response and that we have access to
+
+===== 66 | flask/src/flask/cli.py:1022 | dangerous_function | cat=security =====
+Message: Use of dangerous function 'compile'
+1019|     startup = os.environ.get("PYTHONSTARTUP")
+1020|     if startup and os.path.isfile(startup):
+1021|         with open(startup) as f:
+1022|             eval(compile(f.read(), startup, "exec"), ctx)
+1023| 
+1024|     ctx.update(current_app.make_shell_context())
+
+===== 67 | flask/src/flask/config.py:209 | dangerous_function | cat=security =====
+Message: Use of dangerous function 'compile'
+ 206|         d.__file__ = filename
+ 207|         try:
+ 208|             with open(filename, mode="rb") as config_file:
+ 209|                 exec(compile(config_file.read(), filename, "exec"), d.__dict__)
+ 210|         except OSError as e:
+ 211|             if silent and e.errno in (errno.ENOENT, errno.EISDIR, errno.ENOTDIR):
+
+===== 68 | requests/tests/test_requests.py:1578 | pickle_loads | cat=security =====
+Message: Using pickle.loads() can execute arbitrary code
+1575|             p = r.prepare()
+1576| 
+1577|         # Verify PreparedRequest can be pickled and unpickled
+1578|         r = pickle.loads(pickle.dumps(p))
+1579|         assert r.url == p.url
+1580|         assert r.headers == p.headers
+
+===== 69 | requests/tests/test_utils.py:443 | hardcoded_password | cat=security =====
+Message: Hardcoded secret detected
+ 440|         assert guess_json_utf(data) == expected
+ 441| 
+ 442| 
+ 443| USER = PASSWORD = "%!*'();:@&=+$,/?#[] "
+ 444| ENCODED_USER = compat.quote(USER, "")
+ 445| ENCODED_PASSWORD = compat.quote(PASSWORD, "")
+
+===== 70 | requests/tests/test_requests.py:1554 | pickle_loads | cat=security =====
+Message: Using pickle.loads() can execute arbitrary code
+1551| 
+1552|         # verify we can pickle the response and that we have access to
+1553|         # the original request.
+1554|         pr = pickle.loads(pickle.dumps(r))
+1555|         assert r.request.url == pr.request.url
+1556|         assert r.request.headers == pr.request.headers
+
+===== 71 | requests/tests/test_requests.py:1562 | pickle_loads | cat=security =====
+Message: Using pickle.loads() can execute arbitrary code
+1559|         p = requests.Request("GET", httpbin("get")).prepare()
+1560| 
+1561|         # Verify PreparedRequest can be pickled and unpickled
+1562|         r = pickle.loads(pickle.dumps(p))
+1563|         assert r.url == p.url
+1564|         assert r.headers == p.headers
+
+===== 72 | flask/src/flask/helpers.py:623 | dangerous_function | cat=security =====
+Message: Use of dangerous function '__import__'
+ 620|         filepath = loader.get_filename(import_name)  # pyright: ignore
+ 621|     else:
+ 622|         # Fall back to imports.
+ 623|         __import__(import_name)
+ 624|         mod = sys.modules[import_name]
+ 625|         filepath = getattr(mod, "__file__", None)
+
+===== 73 | flask/examples/tutorial/tests/conftest.py:51 | hardcoded_password | cat=security =====
+Message: Hardcoded secret detected
+  48|     def __init__(self, client):
+  49|         self._client = client
+  50| 
+  51|     def login(self, username="test", password="test"):
+  52|         return self._client.post(
+  53|             "/auth/login", data={"username": username, "password": password}
+
+===== 74 | flask/src/flask/cli.py:245 | dangerous_function | cat=security =====
+Message: Use of dangerous function '__import__'
+ 242|     module_name: str, app_name: str | None, raise_if_not_found: bool = True
+ 243| ) -> Flask | None:
+ 244|     try:
+ 245|         __import__(module_name)
+ 246|     except ImportError:
+ 247|         # Reraise the ImportError if it occurred within the imported module.
+
+===== 75 | requests/src/requests/packages.py:9 | dangerous_function | cat=security =====
+Message: Use of dangerous function '__import__'
+   6| # I don't like it either. Just look the other way. :)
+   7| 
+   8| for package in ("urllib3", "idna"):
+   9|     locals()[package] = __import__(package)
+  10|     # This traversal is apparently necessary such that the identities are
+  11|     # preserved (requests.packages.urllib3.* is urllib3.*)
+
+===== 76 | requests/tests/test_requests.py:3093 | pickle_loads | cat=security =====
+Message: Using pickle.loads() can execute arbitrary code
+3090|         '{"responseCode":["706"],"data":null}{"responseCode":["706"],"data":null}',
+3091|         36,
+3092|     )
+3093|     deserialized_error = pickle.loads(pickle.dumps(json_decode_error))
+3094|     assert repr(json_decode_error) == repr(deserialized_error)
+
+===== 77 | flask/src/flask/debughelpers.py:143 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'line' may be used before definition
+ 140|     if (ctx := _cv_app.get(None)) is not None and ctx.has_request:
+ 141|         blueprint = ctx.request.blueprint
+ 142| 
+ 143|     for idx, (loader, srcobj, triple) in enumerate(attempts):
+ 144|         if isinstance(srcobj, App):
+ 145|             src_info = f"application {srcobj.import_name!r}"
+
+===== 78 | requests/src/requests/models.py:1015 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'pending' may be used before definition
+1012|         for chunk in self.iter_content(
+1013|             chunk_size=chunk_size, decode_unicode=decode_unicode
+1014|         ):
+1015|             if pending is not None:
+1016|                 # TODO: remove cast after iter_lines rewrite
+1017|                 chunk = cast("str | bytes", pending + chunk)
+
+===== 79 | flask/tests/test_basic.py:1758 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'flask' may be used before definition
+1755|         return flask.request.endpoint
+1756| 
+1757|     with app.test_request_context():
+1758|         assert flask.url_for("foo") == "/foo/"
+1759|         assert flask.url_for("bar") == "/bar/"
+1760|         assert flask.url_for("123") == "/bar/123"
+
+===== 80 | requests/src/requests/models.py:203 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'new_fields' may be used before definition
+ 200|         fields = to_key_val_list(data or {})
+ 201|         files = to_key_val_list(files or {})
+ 202| 
+ 203|         for field, val in fields:
+ 204|             if isinstance(val, basestring) or not hasattr(val, "__iter__"):
+ 205|                 val = [val]
+
+===== 81 | flask/src/flask/app.py:732 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'server_url' may be used before definition
+ 729|         server_name = self.config.get("SERVER_NAME")
+ 730|         sn_host = sn_port = None
+ 731| 
+ 732|         if server_name:
+ 733|             server_url = urlsplit(f"//{server_name}")
+ 734|             sn_host = server_url.hostname
+
+===== 82 | requests/tests/test_lowlevel.py:286 | undefined_variable | cat=undefined_variable =====
+Message: Variable '_proxy_combos' may be used before definition
+ 283|     for scheme in schemes:
+ 284|         _proxy_combos.append((f"{prefix}_proxy", scheme))
+ 285| 
+ 286| _proxy_combos += [(var.upper(), scheme) for var, scheme in _proxy_combos]
+ 287| 
+ 288| 
+
+===== 83 | requests/src/requests/cookies.py:620 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'update_method' may be used before definition
+ 617|         cookiejar = cookiejar_from_dict(cookies, cookiejar=cookiejar, overwrite=False)
+ 618|     elif isinstance(cookies, cookielib.CookieJar):
+ 619|         if update_method := getattr(cookiejar, "update", None):
+ 620|             update_method(cookies)
+ 621|         else:
+ 622|             for cookie_in_jar in cookies:
+
+===== 84 | requests/tests/test_utils.py:137 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'super_len' may be used before definition
+ 134|             def __init__(self):
+ 135|                 self.len = 5
+ 136| 
+ 137|         assert super_len(LenFile()) == 5
+ 138| 
+ 139|     def test_super_len_with_tell(self):
+
+===== 85 | requests/tests/test_utils.py:366 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'extracted_path' may be used before definition
+ 363| 
+ 364|         try:
+ 365|             assert extracted_path != zipped_path
+ 366|             assert os.path.exists(extracted_path)
+ 367|             assert filecmp.cmp(extracted_path, __file__)
+ 368|         finally:
+
+===== 86 | requests/tests/test_testserver.py:124 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'time' may be used before definition
+ 121|         with server as address:
+ 122|             sock = socket.socket()
+ 123|             sock.connect(address)
+ 124|             time.sleep(1.5)
+ 125|             sock.sendall(b"hehehe, not received")
+ 126|             sock.close()
+
+===== 87 | flask/tests/test_blueprints.py:296 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'flask' may be used before definition
+ 293| 
+ 294|     @bp.route("/bar/123", endpoint="123")
+ 295|     def foo_bar_foo():
+ 296|         return flask.request.endpoint
+ 297| 
+ 298|     @bp.route("/bar/foo")
+
+===== 88 | flask/src/flask/ctx.py:323 | undefined_variable | cat=undefined_variable =====
+Message: Variable 't' may be used before definition
+ 320|         self._request: Request | None = request
+ 321|         self._session: SessionMixin | None = session
+ 322|         self._flashes: list[tuple[str, str]] | None = None
+ 323|         self._after_request_functions: list[ft.AfterRequestCallable[t.Any]] = []
+ 324| 
+ 325|         try:
+
+===== 89 | flask/tests/test_blueprints.py:511 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'flask' may be used before definition
+ 508| 
+ 509| 
+ 510| def test_template_test(app):
+ 511|     bp = flask.Blueprint("bp", __name__)
+ 512| 
+ 513|     @bp.app_template_test()
+
+===== 90 | flask/src/flask/globals.py:8 | undefined_variable | cat=undefined_variable =====
+Message: Variable '_AppCtxGlobals' may be used before definition
+   5| 
+   6| from werkzeug.local import LocalProxy
+   7| 
+   8| if t.TYPE_CHECKING:  # pragma: no cover
+   9|     from .app import Flask
+  10|     from .ctx import _AppCtxGlobals
+
+===== 91 | requests/tests/test_requests.py:257 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'e' may be used before definition
+ 254|         except TooManyRedirects as e:
+ 255|             url = httpbin("relative-redirect", "20")
+ 256|             assert e.request.url == url
+ 257|             assert e.response.url == url
+ 258|             assert len(e.response.history) == 30
+ 259|         else:
+
+===== 92 | flask/tests/test_basic.py:1406 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'pytest' may be used before definition
+1403| 
+1404|     app.url_build_error_handlers.append(handler_raises_build_error)
+1405| 
+1406|     with app.test_request_context():
+1407|         pytest.raises(BuildError, flask.url_for, "not.existing")
+1408| 
+
+===== 93 | requests/src/requests/sessions.py:231 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'previous_fragment' may be used before definition
+ 228| 
+ 229|             # Normalize url case and attach previous fragment if needed (RFC 7231 7.1.2)
+ 230|             parsed = urlparse(url)
+ 231|             if parsed.fragment == "" and previous_fragment:
+ 232|                 parsed = parsed._replace(fragment=previous_fragment)
+ 233|             elif parsed.fragment:
+
+===== 94 | requests/tests/test_lowlevel.py:298 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'pytest' may be used before definition
+ 295|         kwargs = {var: proxy_url}
+ 296|         with override_environ(**kwargs):
+ 297|             # fake proxy's lack of response will cause a ConnectionError
+ 298|             with pytest.raises(requests.exceptions.ConnectionError):
+ 299|                 requests.get(url)
+ 300| 
+
+===== 95 | requests/tests/test_requests.py:2918 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'requests' may be used before definition
+2915|         r2 = requests.codes.get("too_early")
+2916|         r3 = requests.codes.get("UNORDERED")
+2917|         r4 = requests.codes.get("unordered")
+2918|         r5 = requests.codes.get("UNORDERED_COLLECTION")
+2919|         r6 = requests.codes.get("unordered_collection")
+2920| 
+
+===== 96 | flask/src/flask/cli.py:1062 | undefined_variable | cat=undefined_variable =====
+Message: Variable 'current_app' may be used before definition
+1059| @with_appcontext
+1060| def routes_command(sort: str, all_methods: bool) -> None:
+1061|     """Show all registered routes with endpoints and methods."""
+1062|     rules = list(current_app.url_map.iter_rules())
+1063| 
+1064|     if not rules:
+
+===== 97 | flask/src/flask/sansio/app.py:170 | unused_variable | cat=unused =====
+Message: Variable 'jinja_environment' is assigned but never used
+ 167|     #: The class that is used for the Jinja environment.
+ 168|     #:
+ 169|     #: .. versionadded:: 0.11
+ 170|     jinja_environment = Environment
+ 171| 
+ 172|     #: The class that is used for the :data:`~flask.g` instance.
+
+===== 98 | flask/src/flask/sessions.py:293 | unused_variable | cat=unused =====
+Message: Variable 'digest_method' is assigned but never used
+ 290|     #: signing of cookie based sessions.
+ 291|     salt = "cookie-session"
+ 292|     #: the hash function to use for the signature.  The default is sha1
+ 293|     digest_method = staticmethod(_lazy_sha1)
+ 294|     #: the name of the itsdangerous supported key derivation.  The default
+ 295|     #: is hmac.
+
+===== 99 | flask/src/flask/sessions.py:233 | unused_function | cat=unused =====
+Message: Function 'should_set_cookie' is defined but never called
+ 230|             return datetime.now(UTC) + app.permanent_session_lifetime
+ 231|         return None
+ 232| 
+ 233|     def should_set_cookie(self, app: Flask, session: SessionMixin) -> bool:
+ 234|         """Used by session backends to determine if a ``Set-Cookie`` header
+ 235|         should be set for this session cookie for this response. If the session
+
+===== 100 | flask/src/flask/app.py:72 | unused_function | cat=unused =====
+Message: Function '_make_timedelta' is defined but never called
+  69| T_template_test = t.TypeVar("T_template_test", bound=ft.TemplateTestCallable)
+  70| 
+  71| 
+  72| def _make_timedelta(value: timedelta | int | None) -> timedelta | None:
+  73|     if value is None or isinstance(value, timedelta):
+  74|         return value
+
+===== 101 | flask/tests/test_reqctx.py:191 | unused_function | cat=unused =====
+Message: Function 'index' is defined but never called
+ 188|     app = CustomFlask(__name__)
+ 189| 
+ 190|     @app.route("/")
+ 191|     def index():
+ 192|         # shouldn't get here
+ 193|         AssertionError()
+
+===== 102 | requests/src/requests/adapters.py:11 | unused_import | cat=unused =====
+Message: Imported module 'os.path' is never used
+   8| 
+   9| from __future__ import annotations
+  10| 
+  11| import os.path
+  12| import socket  # noqa: F401
+  13| import typing
+
+===== 103 | flask/tests/test_basic.py:1746 | unused_function | cat=unused =====
+Message: Function 'foo' is defined but never called
+1743|     app.debug = True
+1744| 
+1745|     @app.route("/foo/")
+1746|     def foo():
+1747|         return flask.request.endpoint
+1748| 
+
+===== 104 | flask/src/flask/json/tag.py:122 | unused_function | cat=unused =====
+Message: Function 'check' is defined but never called
+ 119| class PassDict(JSONTag):
+ 120|     __slots__ = ()
+ 121| 
+ 122|     def check(self, value: t.Any) -> bool:
+ 123|         return isinstance(value, dict)
+ 124| 
+
+===== 105 | flask/examples/javascript/tests/conftest.py:14 | unused_function | cat=unused =====
+Message: Function 'client' is defined but never called
+  11| 
+  12| 
+  13| @pytest.fixture
+  14| def client(app):
+  15|     return app.test_client()
+
+===== 106 | flask/tests/test_user_error_handler.py:152 | unused_function | cat=unused =====
+Message: Function 'app_test' is defined but never called
+ 149|         return "app-error"
+ 150| 
+ 151|     @app.route("/error")
+ 152|     def app_test():
+ 153|         raise InternalServerError()
+ 154| 
+
+===== 107 | requests/src/requests/sessions.py:186 | unused_function | cat=unused =====
+Message: Function 'resolve_redirects' is defined but never called
+ 183|         # Standard case: root URI must match
+ 184|         return changed_port or changed_scheme
+ 185| 
+ 186|     def resolve_redirects(
+ 187|         self,
+ 188|         resp: Response,
+
+===== 108 | flask/tests/type_check/typing_error_handler.py:32 | unused_function | cat=unused =====
+Message: Function 'handle_multiple' is defined but never called
+  29| 
+  30| @app.errorhandler(BadRequest)
+  31| @app.errorhandler(404)
+  32| def handle_multiple(e: BadRequest | NotFound) -> str:
+  33|     return ""
+
+===== 109 | flask/src/flask/__init__.py:33 | unused_import | cat=unused =====
+Message: Imported module 'template_rendered' is never used
+  30| from .signals import request_finished as request_finished
+  31| from .signals import request_started as request_started
+  32| from .signals import request_tearing_down as request_tearing_down
+  33| from .signals import template_rendered as template_rendered
+  34| from .templating import render_template as render_template
+  35| from .templating import render_template_string as render_template_string
+
+===== 110 | flask/tests/test_views.py:168 | unused_function | cat=unused =====
+Message: Function 'get' is defined but never called
+ 165| 
+ 166| def test_explicit_head(app, client):
+ 167|     class Index(flask.views.MethodView):
+ 168|         def get(self):
+ 169|             return "GET"
+ 170| 
+
+===== 111 | flask/src/flask/__init__.py:2 | unused_import | cat=unused =====
+Message: Imported module 'Flask' is never used
+   1| from . import json as json
+   2| from .app import Flask as Flask
+   3| from .blueprints import Blueprint as Blueprint
+   4| from .config import Config as Config
+
+===== 112 | flask/tests/test_reqctx.py:1 | unused_import | cat=unused =====
+Message: Imported module 'annotations' is never used
+   1| from __future__ import annotations
+   2| 
+   3| import collections.abc as cabc
+
+===== 113 | flask/tests/test_basic.py:1093 | unused_function | cat=unused =====
+Message: Function 'fail' is defined but never called
+1090|     app.config["TRAP_HTTP_EXCEPTIONS"] = True
+1091| 
+1092|     @app.route("/fail")
+1093|     def fail():
+1094|         flask.abort(404)
+1095| 
+
+===== 114 | flask/src/flask/config.py:126 | unused_function | cat=unused =====
+Message: Function 'from_prefixed_env' is defined but never called
+ 123|             )
+ 124|         return self.from_pyfile(rv, silent=silent)
+ 125| 
+ 126|     def from_prefixed_env(
+ 127|         self, prefix: str = "FLASK", *, loads: t.Callable[[str], t.Any] = json.loads
+ 128|     ) -> bool:
+
+===== 115 | flask/tests/test_converters.py:10 | unused_function | cat=unused =====
+Message: Function 'to_python' is defined but never called
+   7| 
+   8| def test_custom_converters(app, client):
+   9|     class ListConverter(BaseConverter):
+  10|         def to_python(self, value):
+  11|             return value.split(",")
+  12| 
+
+===== 116 | flask/src/flask/app.py:69 | unused_variable | cat=unused =====
+Message: Variable 'T_template_test' is assigned but never used
+  66| T_teardown = t.TypeVar("T_teardown", bound=ft.TeardownCallable)
+  67| T_template_filter = t.TypeVar("T_template_filter", bound=ft.TemplateFilterCallable)
+  68| T_template_global = t.TypeVar("T_template_global", bound=ft.TemplateGlobalCallable)
+  69| T_template_test = t.TypeVar("T_template_test", bound=ft.TemplateTestCallable)
+  70| 
+  71| 
