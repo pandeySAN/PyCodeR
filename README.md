@@ -1,6 +1,6 @@
 # PyLint Pro v2.0
 
-A production-grade static code analyzer for Python that goes beyond traditional linters by combining AST parsing, control flow analysis, and dataflow analysis to catch logic errors, security issues, and code quality problems.
+A static code analyzer for Python that goes beyond traditional linters by combining AST parsing, control flow analysis, and dataflow analysis to catch logic errors, security issues, and code quality problems.
 
 ## Why PyLint Pro?
 
