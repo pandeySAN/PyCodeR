@@ -121,6 +121,17 @@ class PyLintPro:
                     'message': f"Variable '{undef['var']}' may be used before definition",
                     'severity': 'error'
                 })
+            
+            # Definite-assignment analysis: catch variables used on some paths
+            # without being assigned on all paths (e.g. if flag: r = 1 / print(r)).
+            possibly_undefined = reaching.find_possibly_undefined_uses()
+            for pu in possibly_undefined:
+                self.all_issues.append({
+                    'type': 'undefined_variable',
+                    'lineno': pu['lineno'],
+                    'message': pu['message'],
+                    'severity': pu['severity'],
+                })
                 
     def _should_run_rule(self, rule_name: str) -> bool:
         """Check if a rule should be executed based on config"""

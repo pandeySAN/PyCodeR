@@ -39,7 +39,195 @@ class ReachingDefinitions:
                     changed = True
                     
         return self.build_result()
-        
+
+    def _block_def_vars(self, block):
+        """Return the set of variable names defined by statements in a block."""
+        defs = set()
+        for stmt in block.statements:
+            for def_id, def_info in self.definitions.items():
+                if def_info['block'] is block and def_info['stmt'] is stmt:
+                    defs.add(def_info['var'])
+        return defs
+
+    def compute_definite_assignment(self):
+        """Compute definite assignment using intersection at join points.
+
+        A variable is definitely assigned at a program point only if it is
+        assigned on every path reaching that point. This catches cases like::
+
+            if flag:
+                r = 1
+            print(r)   # r possibly undefined
+
+        Returns a dict mapping block name -> set of variables definitely
+        assigned at block exit (reach_out analogue).
+        """
+        # gen[kill] per block: variables defined in the block
+        gen = {}
+        for block in self.cfg.blocks:
+            gen[block] = self._block_def_vars(block)
+
+        definite_in = {block: set() for block in self.cfg.blocks}
+        definite_out = {block: set() for block in self.cfg.blocks}
+
+        # Worklist algorithm: guaranteed to converge for finite lattices.
+        # Compute reachability from entry so that isolated blocks (e.g. empty
+        # ``after_return`` blocks created by the CFG builder with no incoming
+        # edge) don't poison intersections at join points.
+        reachable = set()
+        worklist_reach = [self.cfg.entry]
+        while worklist_reach:
+            b = worklist_reach.pop(0)
+            if b in reachable:
+                continue
+            reachable.add(b)
+            worklist_reach.extend(s for s in b.successors if s not in reachable)
+
+        worklist = list(self.cfg.blocks)
+        iterations = 0
+        while worklist:
+            block = worklist.pop(0)
+            iterations += 1
+            if block.predecessors:
+                # Only intersect reachable predecessors; unreachable ones
+                # (e.g. isolated after_return blocks) would empty the set.
+                reachable_preds = [p for p in block.predecessors if p in reachable]
+                if reachable_preds:
+                    new_in = set(definite_out[reachable_preds[0]])
+                    for pred in reachable_preds[1:]:
+                        new_in &= definite_out[pred]
+                else:
+                    new_in = set()
+            else:
+                new_in = set()
+
+            old_out = definite_out[block].copy()
+
+            definite_in[block] = new_in
+            definite_out[block] = (new_in - gen[block]) | gen[block]
+
+            if definite_out[block] != old_out:
+                for succ in block.successors:
+                    if succ not in worklist:
+                        worklist.append(succ)
+
+        return {'in': definite_in, 'out': definite_out}
+
+    def find_possibly_undefined_uses(self):
+        """Find variables used without being definitely assigned on all paths.
+
+        Uses definite-assignment (intersection) analysis to catch cases where
+        a variable may be used before definition on some execution paths::
+
+            if flag:
+                r = 1
+            print(r)   # possibly undefined
+
+        Returns a list of dicts with 'var', 'stmt', 'block', 'lineno' keys.
+        """
+        # Metadata: builtins, function params, function/class names.
+        builtin_names = set(dir(builtins))
+        builtin_names.update({'__file__', '__name__'})
+
+        params_by_function = {}
+        func_parent = {}
+        function_and_class_names = set()
+
+        def _collect_params(func_node):
+            params = set()
+            for arg in func_node.args.posonlyargs:
+                params.add(arg.arg)
+            for arg in func_node.args.args:
+                params.add(arg.arg)
+            for arg in func_node.args.kwonlyargs:
+                params.add(arg.arg)
+            if func_node.args.vararg:
+                params.add(func_node.args.vararg.arg)
+            if func_node.args.kwarg:
+                params.add(func_node.args.kwarg.arg)
+            return params
+
+        if self.tree is not None:
+            def walk(node, enclosing_func=None):
+                for child in ast.iter_child_nodes(node):
+                    if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                        function_and_class_names.add(child.name)
+                        params_by_function[child.name] = _collect_params(child)
+                        func_parent[child.name] = enclosing_func
+                        walk(child, child.name)
+                    elif isinstance(child, ast.ClassDef):
+                        function_and_class_names.add(child.name)
+                        walk(child, enclosing_func)
+                    else:
+                        walk(child, enclosing_func)
+
+            walk(self.tree)
+
+        def all_params_in_scope(func_name):
+            params = set()
+            current = func_name
+            while current is not None:
+                params.update(params_by_function.get(current, set()))
+                current = func_parent.get(current)
+            return params
+
+        da = self.compute_definite_assignment()
+        definite_in = da['in']
+
+        undefined = []
+
+        for block in self.cfg.blocks:
+            enclosing_fn = block.function
+            inside_function = enclosing_fn is not None
+            params = all_params_in_scope(enclosing_fn) if inside_function else set()
+
+            # Start with definitely-assigned variables at block entry,
+            # plus parameters and function/class names for functions.
+            local_definite = set(definite_in[block])
+            if inside_function:
+                local_definite.update(params)
+                local_definite.update(function_and_class_names)
+
+            for stmt in block.statements:
+                if isinstance(stmt, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                    continue
+
+                uses = self.get_uses(stmt)
+                # Vars defined by this same statement (comprehension targets,
+                # with-statement optional vars, etc.).
+                stmt_def_vars = {
+                    def_info['var']
+                    for def_id, def_info in self.definitions.items()
+                    if def_info['block'] is block and def_info['stmt'] is stmt
+                }
+
+                for var in uses:
+                    if var in builtin_names:
+                        continue
+                    if var in function_and_class_names:
+                        continue
+                    if inside_function and var in params:
+                        continue
+                    if var in stmt_def_vars:
+                        continue
+                    if var in local_definite:
+                        continue
+
+                    undefined.append({
+                        'var': var,
+                        'stmt': stmt,
+                        'block': block.name,
+                        'lineno': getattr(stmt, 'lineno', -1),
+                        'message': f"Variable '{var}' may be used before definition",
+                        'severity': 'error',
+                    })
+
+                for def_id, def_info in self.definitions.items():
+                    if def_info['block'] is block and def_info['stmt'] is stmt:
+                        local_definite.add(def_info['var'])
+
+        return undefined
+
     def _is_def_target(self, node):
         """Return the name(s) defined by a store target, or None."""
         if isinstance(node, ast.Name):
