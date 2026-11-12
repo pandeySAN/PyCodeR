@@ -1,6 +1,5 @@
 import hashlib
 import json
-import pickle
 import os
 from pathlib import Path
 from typing import Dict, Optional, Any
@@ -9,7 +8,7 @@ from typing import Dict, Optional, Any
 class AnalysisCache:
     """
     Cache analysis results to avoid re-analyzing unchanged files.
-    Uses file content hash as cache key.
+    Uses file content hash as cache key. Data is stored as JSON.
     """
     
     def __init__(self, cache_dir: str = ".pylint-pro-cache"):
@@ -37,14 +36,14 @@ class AnalysisCache:
     def get_cache_path(self, filepath: str) -> Path:
         """Get cache file path for a given source file"""
         file_hash = self._compute_hash(filepath)
-        cache_path = self.cache_dir / f"{file_hash}.pkl"
+        cache_path = self.cache_dir / f"{file_hash}.json"
         return cache_path
         
     def is_cached(self, filepath: str) -> bool:
         """Check if analysis results are cached for this file"""
         try:
             file_hash = self._compute_hash(filepath)
-            cache_file = self.cache_dir / f"{file_hash}.pkl"
+            cache_file = self.cache_dir / f"{file_hash}.json"
             
             if not cache_file.exists():
                 return False
@@ -64,8 +63,8 @@ class AnalysisCache:
             
         try:
             cache_path = self.get_cache_path(filepath)
-            with open(cache_path, 'rb') as f:
-                data = pickle.load(f)
+            with open(cache_path, 'r') as f:
+                data = json.load(f)
                 return data
         except Exception as e:
             # Cache corruption, ignore
@@ -75,8 +74,8 @@ class AnalysisCache:
         """Store analysis results in cache"""
         try:
             cache_path = self.get_cache_path(filepath)
-            with open(cache_path, 'wb') as f:
-                pickle.dump(data, f)
+            with open(cache_path, 'w') as f:
+                json.dump(data, f, indent=2)
                 
             # Update metadata
             self.metadata[filepath] = {
