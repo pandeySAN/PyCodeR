@@ -132,6 +132,7 @@ class ReachingDefinitions:
         params_by_function = {}
         func_parent = {}
         function_and_class_names = set()
+        handler_names = {}
 
         def _collect_params(func_node):
             params = set()
@@ -157,6 +158,11 @@ class ReachingDefinitions:
                         walk(child, child.name)
                     elif isinstance(child, ast.ClassDef):
                         function_and_class_names.add(child.name)
+                        walk(child, enclosing_func)
+                    elif isinstance(child, ast.Try):
+                        for handler in child.handlers:
+                            if handler.name:
+                                handler_names.setdefault(enclosing_func, set()).add(handler.name)
                         walk(child, enclosing_func)
                     else:
                         walk(child, enclosing_func)
@@ -187,6 +193,7 @@ class ReachingDefinitions:
             if inside_function:
                 local_definite.update(params)
                 local_definite.update(function_and_class_names)
+                local_definite.update(handler_names.get(enclosing_fn, set()))
 
             for stmt in block.statements:
                 if isinstance(stmt, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
@@ -201,6 +208,9 @@ class ReachingDefinitions:
                     if def_info['block'] is block and def_info['stmt'] is stmt
                 }
 
+                # except-as names are defined inside their handler's scope.
+                handler_vars = handler_names.get(enclosing_fn, set()) if inside_function else set()
+                
                 for var in uses:
                     if var in builtin_names:
                         continue
@@ -209,6 +219,8 @@ class ReachingDefinitions:
                     if inside_function and var in params:
                         continue
                     if var in stmt_def_vars:
+                        continue
+                    if var in handler_vars:
                         continue
                     if var in local_definite:
                         continue
