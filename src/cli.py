@@ -114,23 +114,23 @@ class PyLintPro:
             reaching.analyze()
             undefined = reaching.find_undefined_uses()
             
-            for undef in undefined:
-                self.all_issues.append({
-                    'type': 'undefined_variable',
-                    'lineno': undef['lineno'],
-                    'message': f"Variable '{undef['var']}' may be used before definition",
-                    'severity': 'error'
-                })
-            
             # Definite-assignment analysis: catch variables used on some paths
             # without being assigned on all paths (e.g. if flag: r = 1 / print(r)).
             possibly_undefined = reaching.find_possibly_undefined_uses()
-            for pu in possibly_undefined:
+            
+            # Merge both analyses, de-duplicating by (var, lineno).
+            seen = set()
+            for undef in undefined + possibly_undefined:
+                key = (undef['var'], undef.get('lineno', -1))
+                if key in seen:
+                    continue
+                seen.add(key)
                 self.all_issues.append({
                     'type': 'undefined_variable',
-                    'lineno': pu['lineno'],
-                    'message': pu['message'],
-                    'severity': pu['severity'],
+                    'lineno': undef.get('lineno', -1),
+                    'message': undef.get('message',
+                        f"Variable '{undef['var']}' may be used before definition"),
+                    'severity': undef.get('severity', 'error'),
                 })
                 
     def _should_run_rule(self, rule_name: str) -> bool:

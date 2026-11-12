@@ -44,6 +44,12 @@ class UnusedVarDetector:
             return False
             
         if symbol.type == 'function':
+            # Ignore test functions (referenced by test frameworks) and
+            # dunder methods (referenced by Python/data model).
+            if symbol.name.startswith('test_') or (
+                symbol.name.startswith('__') and symbol.name.endswith('__')
+            ):
+                return False
             return len(symbol.references) == 0
             
         if symbol.type == 'variable':

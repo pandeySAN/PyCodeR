@@ -133,6 +133,8 @@ class FunctionCallVisitor(ast.NodeVisitor):
     def visit_FunctionDef(self, node):
         self.function_defs[node.name] = {
             'args': len(node.args.args),
+            'vararg': bool(node.args.vararg),
+            'kwarg': bool(node.args.kwarg),
             'lineno': node.lineno
         }
         self.generic_visit(node)
@@ -141,7 +143,13 @@ class FunctionCallVisitor(ast.NodeVisitor):
         if isinstance(node.func, ast.Name):
             func_name = node.func.id
             if func_name in self.function_defs:
-                expected = self.function_defs[func_name]['args']
+                # Skip functions that accept *args or **kwargs: they can
+                # accept any number of positional/keyword arguments.
+                info = self.function_defs[func_name]
+                if info['vararg'] or info['kwarg']:
+                    self.generic_visit(node)
+                    return
+                expected = info['args']
                 actual = len(node.args)
                 
                 if expected != actual:
@@ -151,7 +159,7 @@ class FunctionCallVisitor(ast.NodeVisitor):
                         'message': f"Function '{func_name}' expects {expected} args, got {actual}",
                         'severity': 'error'
                     })
-                    
+                     
         self.generic_visit(node)
 
 
