@@ -1,4 +1,5 @@
 import ast
+import builtins
 
 
 class ReachingDefinitions:
@@ -93,17 +94,9 @@ class ReachingDefinitions:
                         ids.append(self.def_id)
                         self.def_id += 1
         elif isinstance(stmt, ast.Try):
-            for handler in stmt.handlers:
-                if handler.name:
-                    def_info = {
-                        'id': self.def_id,
-                        'var': handler.name,
-                        'stmt': stmt,
-                        'block': block,
-                    }
-                    self.definitions[self.def_id] = def_info
-                    ids.append(self.def_id)
-                    self.def_id += 1
+            # except-as names are registered in find_undefined_uses via the
+            # handler_names mapping so they are scoped to the handler body.
+            pass
         # Comprehension/generator targets (e.g. `for x in ...` in a listcomp)
         # bind their names inside the comprehension, so uses within the same
         # comprehension see them.
@@ -146,12 +139,23 @@ class ReachingDefinitions:
         #   - builtins (always defined)
         for block in self.cfg.blocks:
             for stmt in block.statements:
-                if isinstance(stmt, ast.FunctionDef):
-                    # Function name is defined at module level after the def.
+                if isinstance(stmt, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                    # Function name is defined at function entry (visible inside
+                    # the body for recursion).
                     self._add_synthetic(stmt.name, block, stmt, 'function')
-                    # Parameters are defined at function entry.
+                    # Parameters are defined at function entry. Collect all
+                    # parameter kinds: pos-only, positional-or-keyword,
+                    # keyword-only, *args, **kwargs.
+                    for arg in stmt.args.posonlyargs:
+                        self._add_synthetic(arg.arg, block, stmt, 'parameter')
                     for arg in stmt.args.args:
                         self._add_synthetic(arg.arg, block, stmt, 'parameter')
+                    for arg in stmt.args.kwonlyargs:
+                        self._add_synthetic(arg.arg, block, stmt, 'parameter')
+                    if stmt.args.vararg:
+                        self._add_synthetic(stmt.args.vararg.arg, block, stmt, 'parameter')
+                    if stmt.args.kwarg:
+                        self._add_synthetic(stmt.args.kwarg.arg, block, stmt, 'parameter')
                     # Default argument values are evaluated at definition time.
                     for default in stmt.args.defaults:
                         for name in self._names_in(default):
@@ -162,6 +166,9 @@ class ReachingDefinitions:
                                 self._mark_used(name, block, stmt)
                 elif isinstance(stmt, ast.ClassDef):
                     self._add_synthetic(stmt.name, block, stmt, 'class')
+                    # Methods defined inside the class body become parameters
+                    # (self/cls) of their enclosing methods; the class name
+                    # itself is already handled above.
                 elif isinstance(stmt, ast.Import):
                     for alias in stmt.names:
                         name = alias.asname if alias.asname else alias.name.split('.')[0]
@@ -251,7 +258,7 @@ class ReachingDefinitions:
         """Find variables that may be used before definition.
 
         A use is considered safe when:
-          * it is a builtin,
+          * it is a builtin (from ``dir(builtins)``),
           * it is a function or class name (defined after its def/class stmt),
           * it is a parameter of the enclosing function (defined at entry),
           * it is a name defined at module level (imports, top-level assigns)
@@ -261,16 +268,13 @@ class ReachingDefinitions:
         undefined = []
         
         # Python built-ins are always defined.
-        builtins = {
-            'print', 'len', 'range', 'str', 'int', 'float', 'list', 'dict', 'set', 'tuple',
-            'open', 'input', 'sum', 'min', 'max', 'abs', 'all', 'any', 'enumerate', 'zip',
-            'map', 'filter', 'sorted', 'reversed', 'isinstance', 'type', 'hasattr', 'getattr',
-            'setattr', 'dir', 'help', 'id', 'hex', 'oct', 'bin', 'chr', 'ord', 'eval', 'exec',
-            'compile', 'globals', 'locals', '__name__', '__file__', '__doc__', 'Exception',
-            'True', 'False', 'None', 'NotImplemented', 'Ellipsis', 'object', 'super',
-        }
+        builtin_names = set(dir(builtins))
+        # Interpreter-defined module-level names (__file__, __name__) are also
+        # always available at module level, though not in dir(builtins).
+        builtin_names.update({'__file__', '__name__'})
         
-        # Map block -> set of parameter names for the enclosing function.
+        # Map function name -> set of parameter names (all kinds: pos-only,
+        # positional-or-keyword, keyword-only, *args, **kwargs).
         params_by_function = {}
         # function -> parent enclosing function name (or None at module level).
         func_parent = {}
@@ -278,31 +282,43 @@ class ReachingDefinitions:
         module_level_defined = set()
         # Function/class names are always defined once their statement ran.
         function_and_class_names = set()
+        # (function_name, handler_name) -> except-as name defined in that
+        # handler's scope.
+        handler_names = {}
 
-        # Gather metadata from the AST tree (FunctionDef/ClassDef/Import nodes
-        # are not stored as block statements by the CFG builder). We walk
-        # recursively so we know each function's enclosing function, which lets
-        # nested functions close over outer parameters.
+        def _collect_params(func_node):
+            """Return the set of all parameter names for a function node."""
+            params = set()
+            for arg in func_node.args.posonlyargs:
+                params.add(arg.arg)
+            for arg in func_node.args.args:
+                params.add(arg.arg)
+            for arg in func_node.args.kwonlyargs:
+                params.add(arg.arg)
+            if func_node.args.vararg:
+                params.add(func_node.args.vararg.arg)
+            if func_node.args.kwarg:
+                params.add(func_node.args.kwarg.arg)
+            return params
+
+        # Gather metadata from the AST tree. We walk recursively so we know
+        # each function's enclosing function, which lets nested functions
+        # close over outer parameters, and methods inside classes see their
+        # first parameter (self/cls).
         if self.tree is not None:
             def walk(node, enclosing_func=None):
                 for child in ast.iter_child_nodes(node):
-                    if isinstance(child, ast.FunctionDef):
+                    if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
                         function_and_class_names.add(child.name)
-                        params_by_function.setdefault(child.name, set())
-                        for arg in child.args.args:
-                            params_by_function[child.name].add(arg.arg)
-                        if child.args.vararg:
-                            params_by_function[child.name].add(child.args.vararg.arg)
-                        if child.args.kwarg:
-                            params_by_function[child.name].add(child.args.kwarg.arg)
+                        params_by_function[child.name] = _collect_params(child)
                         func_parent[child.name] = enclosing_func
                         # Recurse into the body with this function as enclosing.
                         walk(child, child.name)
                     elif isinstance(child, ast.ClassDef):
                         function_and_class_names.add(child.name)
-                        # Class bodies run at class definition time; names
-                        # defined in enclosing functions are not in scope
-                        # inside methods, so keep the same enclosing function.
+                        # Methods inside the class see their own parameters;
+                        # the enclosing function context is unchanged for
+                        # nested functions defined in class methods.
                         walk(child, enclosing_func)
                     elif isinstance(child, (ast.Import, ast.ImportFrom)):
                         if isinstance(child, ast.Import):
@@ -320,6 +336,12 @@ class ReachingDefinitions:
                             for target in child.targets:
                                 for name in self._is_def_target(target) or []:
                                     module_level_defined.add(name)
+                    elif isinstance(child, ast.Try):
+                        for handler in child.handlers:
+                            if handler.name:
+                                key = enclosing_func
+                                handler_names.setdefault(key, set()).add(handler.name)
+                        walk(child, enclosing_func)
                     else:
                         walk(child, enclosing_func)
 
@@ -345,9 +367,26 @@ class ReachingDefinitions:
                 self.definitions[d]['var'] for d in block.reach_in
             }
             
+            # except-as names (e.g. `except ValueError as e`) are defined
+            # inside their handler's scope; add them for the enclosing function.
+            if inside_function:
+                defined_vars.update(handler_names.get(enclosing_fn, set()))
+            
             # Walk statements in program order so a use only sees definitions
             # that come before it (from predecessors or earlier in the block).
             for stmt in block.statements:
+                # Function/async-function/class definitions create their own
+                # CFG blocks; their bodies are analyzed separately, so skip
+                # them here to avoid picking up names from nested scopes.
+                if isinstance(stmt, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                    # Still register definitions made by this statement.
+                    stmt_def_vars = {
+                        def_info['var']
+                        for def_id, def_info in self.definitions.items()
+                        if def_info['block'] is block and def_info['stmt'] is stmt
+                    }
+                    defined_vars.update(stmt_def_vars)
+                    continue
                 uses = self.get_uses(stmt)
                 # Vars defined by this same statement (covers lambda/comprehension
                 # parameters and x = x + 1 style statements where the use is
@@ -359,7 +398,7 @@ class ReachingDefinitions:
                 }
                 
                 for var in uses:
-                    if var in builtins:
+                    if var in builtin_names:
                         continue
                     if var in function_and_class_names:
                         continue
